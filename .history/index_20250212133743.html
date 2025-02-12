@@ -11,10 +11,9 @@
     <header>
         <div class="row row--qr-header">
             <div class="col qr-logo">
-                <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+                <img class="qr-logo__img" src="https://cdn3.emoji.gg/emojis/1200-hehe.png" alt="QR code styling logo" />
             </div>
         </div>
-
     </header>
     <main>
         <div class="accordion">
@@ -26,16 +25,12 @@
               
             <div class="accordion-content">
               <div class="accordion-content-inner">
-                <div>
-                    <label for="form-data">Data</label>
-                    <textarea class="text-box" node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">https://qr-code-styling.com</textarea>
-                </div>    
-                      <div>
-                        <label for="form-image-file">Image File</label>
-                        <div class="buttons-container">
-                            <input node="image" node-data-field="files" id="form-image-file" type="file" />
-                             <button type="button" id="button-cancel">Cancel</button>
-                        </div>
+                  <label for="form-data">Data</label>
+                      <textarea node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">https://qr-code-styling.com</textarea>
+                      <label for="form-image-file">Image File</label>
+                      <div class="buttons-container">
+                          <input node="image" node-data-field="files" id="form-image-file" type="file" />
+                           <button type="button" id="button-cancel">Cancel</button>
                       </div>
                       <label for="form-width">Width</label>
                       <div>

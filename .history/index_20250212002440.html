@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Generate</title>
+    <link rel="stylesheet" href="./app.css" />
+</head>
+<body>
+    <div class="accordion">
+
+      <div class="accordion-header">
+        <span>Main option</span>
+        <i class="fa fa-angle-down icon"></i>
+      </div>
+        
+      <div class="accordion-content">
+        <div class="accordion-content-inner">
+            <label for="form-data">Data</label>
+                <textarea node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">https://qr-code-styling.com</textarea>
+                <label for="form-image-file">Image File</label>
+                <div class="buttons-container">
+                    <input node="image" node-data-field="files" id="form-image-file" type="file" />
+                     <button type="button" id="button-cancel">Cancel</button>
+                </div>
+                <label for="form-width">Width</label>
+                <div>
+                    <input node="width" id="form-width" type="number" min="100" max="10000" value="300"/>
+                </div>
+                <label for="form-height">Height</label>
+                <div>
+                    <input node="height" id="form-height" type="number" min="100" max="10000" value="300"/>
+                </div>
+                <label for="form-height">Margin</label>
+                <div>
+                    <input node="margin" id="form-margin" type="number" min="0" max="10000" value="0"/>
+                </div>
+        </div>
+      </div>
+    
+    
+    </div class="accordion">
+      <div class="accordion-header">Your header</div>
+      <div class="accordion-content">Your content</div>    
+</body>
+</html>

@@ -1,0 +1,145 @@
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 25px;
+  background-color: #f9f9f9;
+}
+
+.accordion {
+  margin-bottom: 25px;
+  max-width: 500px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  overflow: hidden;
+}
+
+.accordion-header {
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+.accordion-header i {
+  transition: transform 0.3s ease;
+}
+
+.accordion-header.active i {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  background: white;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out, padding 0.3s ease-in-out;
+}
+
+.accordion-content.is-active {
+  height: auto;
+  padding: 15px 20px;
+}
+
+.accordion-content-inner {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-content-inner label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+  color: #444;
+}
+
+.accordion-content-inner input, 
+.accordion-content-inner select, 
+.accordion-content-inner textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fafafa;
+  transition: border-color 0.3s ease;
+}
+
+.accordion-content-inner input:focus, 
+.accordion-content-inner select:focus, 
+.accordion-content-inner textarea:focus {
+  border-color: #667eea;
+  outline: none;
+}
+
+.accordion-content-inner button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.accordion-content-inner button:hover {
+  background: #5a67d8;
+}
+
+.avatar-img {
+  width: 85px;
+  height: px;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.text-box {
+  width: 100%;
+  height: 56px;
+  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+}
+ #form-dots-color,#form-corners-square-color,#form-corners-dot-color,#form-background-color  {
+  padding: 3px;
+  width: 40%;
+} 
+.accordion{
+  margin-left: 70px;
+  margin-top: 25px;
+
+}
+body {
+  background-image: url('https://scontent.fhan5-7.fna.fbcdn.net/v/t39.30808-6/473671402_1138263248302929_1638910666034354934_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeE7w2OrFmVNs9tMsTKkmqfmLE7PSWZDdTgsTs9JZkN1OEjxqGKXyrZoVfbQBzAZglQT4IzdUT5ALBijlWSIexqa&_nc_ohc=sNqHH9RCHfcQ7kNvgGNIJ3m&_nc_oc=Adg-7ZYsgD6fiG91MNpc1JXy_XFQRzEpLHkN3KvoEZycbgGKjHLEsgCW6S4gHL4LXln1QN6LDzfbf2TCkxI0diVM&_nc_zt=23&_nc_ht=scontent.fhan5-7.fna&_nc_gid=ASIB_WkXm1hPH8-z-gM8DpM&oh=00_AYCvmNBgsomDLWgqREg4VOoEDTf4RXIITrzcKDgxUA39Fw&oe=67B24B5B');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Giữ nguyên khi cuộn trang */
+}
