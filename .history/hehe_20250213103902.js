@@ -23,16 +23,17 @@ function handleClickAccordion(event){
 const button = document.querySelector(".button");
 button.addEventListener("click", function(){
   document.body.insertAdjacentHTML("afterbegin", template);
-  document.querySelector(".modal").style.opacity = "1";
-  document.querySelector(".modal").style.visibility = "visible";
 });
 
 document.body.addEventListener("click", function(event){
   console.log(event.target);
   if (event.target.matches(".modal-close")){
+      // handle close modal here
       const modal = event.target.parentNode.parentNode;
       modal.parentNode.removeChild(modal);
   }else if(event.target.matches(".modal")){
+      // const modal = document.querySelector(".modal");
+      // modal.parentNode.removeChild(modal);
       event.target.parentNode.removeChild(event.target);
   }
 });

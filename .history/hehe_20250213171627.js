@@ -30,9 +30,12 @@ button.addEventListener("click", function(){
 document.body.addEventListener("click", function(event){
   console.log(event.target);
   if (event.target.matches(".modal-close")){
+      // handle close modal here
       const modal = event.target.parentNode.parentNode;
       modal.parentNode.removeChild(modal);
   }else if(event.target.matches(".modal")){
+      // const modal = document.querySelector(".modal");
+      // modal.parentNode.removeChild(modal);
       event.target.parentNode.removeChild(event.target);
   }
 });

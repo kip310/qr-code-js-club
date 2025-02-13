@@ -123,10 +123,13 @@ html {
     visibility: hidden;
     transition: all 0.25s linear;
   }
-
+  .modal.is-show {
+    opacity: 1;
+    visibility: visible;
+  }
   .modal-content {
     max-width: 600px;
-    padding: 250px 250px 400px 250px;
+    padding: 50px;
     border-radius: 20px;
     background-color: white;
     position: relative;
@@ -144,5 +147,31 @@ html {
     border-radius: 50px;
     cursor: pointer;
     color: #999;
+  }
+  .modal-desc {
+    font-size: 15px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  }
+  .modal-action {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0 20px;
+  }
+  .modal-submit,
+  .modal-cancel {
+    border: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #999;
+  }
+  .modal-submit {
+    background-color: #3d6ef7;
+    color: white;
   }
   

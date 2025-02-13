@@ -126,10 +126,11 @@ html {
 
   .modal-content {
     max-width: 600px;
-    padding: 250px 250px 400px 250px;
+    padding: 200px;
     border-radius: 20px;
     background-color: white;
     position: relative;
+    padding-bottom: 400;
   }
   .modal-close {
     position: absolute;
