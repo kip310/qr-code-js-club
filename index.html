@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Generate</title>
+    <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/97457434?s=280&v=4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./app.css" />
 </head>
@@ -38,17 +39,25 @@
                         </div>
                       </div>
                       <label for="form-width">Width</label>
-                      <div>
-                          <input node="width" id="form-width" type="number" min="100" max="10000" value="300"/>
-                      </div>
-                      <label for="form-height">Height</label>
-                      <div>
-                          <input node="height" id="form-height" type="number" min="100" max="10000" value="300"/>
-                      </div>
-                      <label for="form-height">Margin</label>
-                      <div>
-                          <input node="margin" id="form-margin" type="number" min="0" max="10000" value="0"/>
-                      </div>
+                    <div>
+                        <input node="width" id="form-width" type="range" min="100" max="10000" value="300" step="10" />
+                        <span id="width-value"></span> px
+                    </div>
+
+                    <label for="form-height">Height</label>
+                    <div>
+                        <input node="height" id="form-height" type="range" min="100" max="10000" value="300" step="10" />
+                        <span id="height-value"></span> px
+                    </div>
+
+                    <label for="form-margin">Margin</label>
+                    <div>
+                        <input node="margin" id="form-margin" type="range" min="0" max="10000" value="0" step="10" />
+                        <span id="margin-value"></span> px
+                    </div>
+
+                    
+
               </div>
             </div>
           
