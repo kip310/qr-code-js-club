@@ -97,3 +97,32 @@ body {
   height: 56px;
 }
 
+.hidden {
+  display: none;
+}
+#dots-options {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+}
+
+#corners-square-ptions {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  
+}
+
+#corners-dot-options {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  
+}
+
+#background-options {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  
+}
