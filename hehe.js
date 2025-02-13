@@ -34,4 +34,70 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    function setupColorToggle(singleColorRadioId, gradientColorRadioId, optionsContainerId, singleColorSectionClass, gradientColorSectionClass) {
+        const singleColorRadio = document.getElementById(singleColorRadioId);
+        const gradientColorRadio = document.getElementById(gradientColorRadioId);
+        const optionsContainer = document.getElementById(optionsContainerId);
 
+        const singleColorSection = document.querySelector(singleColorSectionClass);
+        const gradientColorSection = document.querySelector(gradientColorSectionClass);
+
+        function toggleColorOptions() {
+            const isSingleSelected = singleColorRadio.checked;
+
+            singleColorSection.classList.toggle("hidden", !isSingleSelected);
+            gradientColorSection.classList.toggle("hidden", isSingleSelected);
+
+            resize();
+        }
+
+        function resize() {
+            optionsContainer.style.height = `${optionsContainer.scrollHeight}px`;
+            setTimeout(() => {
+                optionsContainer.style.height = "auto";
+            }, 300);
+        }
+
+        singleColorRadio.addEventListener("change", toggleColorOptions);
+        gradientColorRadio.addEventListener("change", toggleColorOptions);
+
+        // Initially hide the gradient section
+        gradientColorSection.classList.add("hidden");
+        optionsContainer.style.height = "0px";
+        optionsContainer.style.overflow = "hidden";
+    }
+
+    // Áp dụng cho tất cả các phần tử
+    setupColorToggle(
+        "form-dots-color-type-single", 
+        "form-dots-color-type-gradient", 
+        "dots-options", 
+        ".dots-options.single", 
+        ".dots-options.gradient"
+    );
+
+    setupColorToggle(
+        "form-corners-square-color-type-single", 
+        "form-corners-square-color-type-gradient", 
+        "corners-square-options", 
+        ".cornersSquareOptions.single", 
+        ".cornersSquareOptions.gradient"
+    );
+
+    setupColorToggle(
+        "corners-dot-single", 
+        "corners-dot-gradient", 
+        "corners-dot-options", 
+        ".corners-dot.single", 
+        ".corners-dot.gradient"
+    );
+
+    setupColorToggle(
+        "background-color-single", 
+        "background-color-gradient", 
+        "background-options", 
+        ".background-options.single", 
+        ".background-options.gradient"
+    );
+});
