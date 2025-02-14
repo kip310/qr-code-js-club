@@ -126,7 +126,7 @@ html {
 
   .modal-content {
     max-width: 600px;
-    padding: 250px 250px 400px 250px;
+    padding: 170px 250px 350px 250px;
     border-radius: 20px;
     background-color: white;
     position: relative;
@@ -145,4 +145,118 @@ html {
     cursor: pointer;
     color: #999;
   }
+
+  .menu {
+    width: 300px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    list-style: none;
+    transform: translateX(100%);
+    transition: transform 0.25s linear;
+  }
+  .menu.is-show {
+    transform: translateX(0);
+  }
+  .menu-link {
+    display: block;
+    padding: 20px 15px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+  }
+  .header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .menu-toggle {
+    cursor: pointer;
+    font-size: 30px;
+    position: relative;
+    z-index: 9999;
+  }
   
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  /* Header styling */
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #4CAF50; /* Change as needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo aligned left */
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust logo size */
+.avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* Menu icon aligned right */
+.menu-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Login button */
+.button {
+  background-color: white;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Prevent body content from overlapping with fixed header */
+main {
+  margin-top: 70px; /* Same as header height */
+  padding: 20px;
+}
+
+/* Fix menu sliding under the header */
+.menu {
+  width: 300px;
+  position: fixed;
+  top: 60px; /* This prevents it from being hidden under the header */
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  list-style: none;
+  transform: translateX(100%);
+  transition: transform 0.25s linear;
+}
+
+/* Show menu when active */
+.menu.is-show {
+  transform: translateX(0);
+}
+
+
+
+
+

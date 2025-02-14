@@ -22,9 +22,15 @@ function handleClickAccordion(event){
   </div>`;
 const button = document.querySelector(".button");
 button.addEventListener("click", function(){
-  document.body.insertAdjacentHTML("afterbegin", template);
-  document.querySelector(".modal").style.opacity = "1";
-  document.querySelector(".modal").style.visibility = "visible";
+  if (!document.body.contains(document.querySelector(".modal"))){
+    document.body.insertAdjacentHTML("afterbegin", template);
+    document.querySelector(".modal").style.opacity = "1";
+    document.querySelector(".modal").style.visibility = "visible";
+  }else{
+    const modal = document.querySelector(".modal");
+    modal.parentNode.removeChild(modal);
+  }
+ 
 });
 
 document.body.addEventListener("click", function(event){
@@ -35,4 +41,24 @@ document.body.addEventListener("click", function(event){
   }else if(event.target.matches(".modal")){
       event.target.parentNode.removeChild(event.target);
   }
+});
+
+
+// xu li phan menu
+const toggle = document.querySelector(".menu-toggle");
+const menu = document.querySelector(".menu");
+
+toggle.addEventListener("click", handleToggleMenu);
+function handleToggleMenu(event){
+    menu.classList.toggle("is-show");
+    toggle.classList.toggle("fa-times");
+    toggle.classList.toggle("fa-bars");
+}
+
+document.addEventListener("click", function(event){
+    if (!menu.contains(event.target) && !event.target.matches(".menu-toggle")){
+        menu.classList.remove("is-show");
+        toggle.classList.remove("fa-times");
+        toggle.classList.add("fa-bars");
+    }
 });
