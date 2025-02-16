@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/97457434?s=280&v=4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="./app.css" />
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
 </head>
 <body>
     <header>
@@ -27,9 +28,9 @@
               
             <div class="accordion-content">
               <div class="accordion-content-inner">
-                <div>
+                <div class="input-wrap">
                     <label for="form-data">Data</label>
-                    <textarea class="text-box" node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">https://qr-code-styling.com</textarea>
+                    <textarea class="text-box" node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">TYPE HERE</textarea>
                 </div>    
                       <div>
                         <label for="form-image-file">Image File</label>
@@ -361,6 +362,11 @@
       
                           </div>
           </div> 
+        <div class="display">
+            <div id="canvas"></div>
+            <p>300px x 300px</p>
+            <button class="btn-download" id="btn-dl" type="button">Download</button>
+        </div>
     </main>
       <script src="./hehe.js"></script>
 </body>

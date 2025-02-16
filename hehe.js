@@ -101,3 +101,43 @@ document.addEventListener("DOMContentLoaded", function () {
         ".background-options.gradient"
     );
 });
+
+
+// xu li tao ra qr code
+let op= {
+    width: 300,
+    height: 300,
+    type: "svg",
+    data: "https://www.facebook.com/fu.jsclub",
+    image: "https://avatars.githubusercontent.com/u/97457434?s=280&v=4",
+    dotsOptions: {
+        color: "#4267b2",
+        type: "rounded"
+    },
+    backgroundOptions: {
+        color: "#e9ebee",
+    },
+    imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 20
+    }
+};
+
+render();
+
+var qrCode;
+function render(){
+    qrCode = new QRCodeStyling(op);
+    let canvasEl = document.querySelector('#canvas');
+    canvasEl.innerHTML = '';
+    qrCode.append(canvasEl);
+    canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
+}
+
+
+// xu li nhap vao data(link)
+const textData = document.querySelector("#form-data");
+textData.addEventListener("keyup", e=>{
+    op.data = e.target.value;
+    render();
+})
