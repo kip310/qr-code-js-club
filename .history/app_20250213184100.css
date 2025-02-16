@@ -1,0 +1,149 @@
+html {
+    box-sizing: border-box;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  input,
+  textarea,
+  select,
+  button {
+    outline: none;
+  }
+  input {
+    line-height: normal;
+  }
+  label,
+  button {
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  /* using rem unit */
+  html {
+    font-size: 62.5%;
+  }
+  a {
+    text-decoration: none;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  body {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    padding: 25px;
+  }
+  .accordion {
+    margin-bottom: 25px;
+    max-width: 400px;
+  }
+  .accordion-header {
+    padding: 20px;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .accordion-header * {
+    pointer-events: none;
+  }
+  .accordion-content {
+    border-top: 0;
+    color: #333;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    background-color: white;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.25s linear;
+  }
+  .accordion-content-inner {
+    padding: 20px;
+    border: 1px solid #eee;
+  }
+  .accordion-content.is-active {
+    height: auto;
+  }
+  
+  .avatar-img{
+    width: 150px;
+    height: 150px;
+  }
+
+  .text-box{
+    width: 300px;
+    height: 56px;
+  }
+
+  .button{
+    display: block;
+    width : 150px;
+    border: 0;
+    background-color: red;
+    color: white;
+    padding: 15px;
+    margin: 15px auto;  
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s linear;
+  }
+
+  .modal-content {
+    max-width: 600px;
+    padding: 200px;
+    border-radius: 20px;
+    background-color: white;
+    position: relative;
+    height: 400px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #999;
+  }
+  
