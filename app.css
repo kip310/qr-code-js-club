@@ -233,3 +233,42 @@ header {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.display{
+  margin-left: 100px;
+}
+
+.accordion{
+  margin-left: 330px;
+}
+
+.input-wrap{
+  align-items: flex-start;
+  display: flex;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.text-box{
+  width: 100%;
+}
+
+label{
+  width: 30%;
+}
+
+textarea, select, input, button{
+  border: none;
+  resize: none;
+  font-size: 1.5rem;
+}
+
+select, textarea, input, button{
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+main{
+  display: flex;
+}
