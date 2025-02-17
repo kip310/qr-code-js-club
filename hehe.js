@@ -120,7 +120,8 @@ let op= {
     },
     imageOptions: {
         crossOrigin: "anonymous",
-        margin: 20
+        margin: 10, // Giảm margin để ảnh lớn hơn
+        imageSize: 0.6 // Điều chỉnh kích thước ảnh (giá trị từ 0 đến 1, mặc định khoảng 0.2)
     }
 };
 
@@ -190,4 +191,39 @@ document.addEventListener("click", function(event){
         toggle.classList.remove("fa-times");
         toggle.classList.add("fa-bars");
     }
+});
+
+//thay đổi kích thước của qr khi kéo thanh trượt Width, height, Margin
+
+const widthInput = document.querySelector("#form-width");
+const heightInput = document.querySelector("#form-height");
+const marginInput = document.querySelector("#form-margin");
+
+widthInput.addEventListener("input", e=>{
+    op.width = e.target.value;
+    render();
+});
+
+heightInput.addEventListener("input", e=>{
+    op.height = e.target.value;
+    render();
+});
+
+marginInput.addEventListener("input", e=>{
+    op.imageOptions = {margin: e.target.value};
+    render();
+});
+
+//Upload file để thay đổi hình ảnh logo
+
+
+const fileInput = document.querySelector("#form-logo");
+fileInput.addEventListener("change", e=>{
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.onload = ()=> {
+        op.image = reader.result;
+        render();
+    };
+    reader.readAsDataURL(file);
 });
