@@ -272,3 +272,15 @@ select, textarea, input, button{
 main{
   display: flex;
 }
+
+
+.login-button {
+  margin-left: auto; /* Đẩy nút login sang bên phải */
+  margin-right: 15px; /* Cách menu một chút */
+}
+
+.header-logo img {
+  width: 50px; /* Điều chỉnh kích thước logo */
+  height: auto;
+  margin-left: 10px; /* Căn lề trái để không quá sát viền */
+}
