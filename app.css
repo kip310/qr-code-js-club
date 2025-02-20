@@ -272,5 +272,3 @@ select, textarea, input, button{
 main{
   display: flex;
 }
-
-.hidden { display: none; }
