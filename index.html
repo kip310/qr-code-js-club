@@ -69,7 +69,7 @@
 
                     <label for="form-margin">Margin</label>
                     <div>
-                        <input node="margin" id="form-margin" type="range" min="0" max="300" value="0" step="10" />
+                        <input node="margin" id="form-margin" type="range" min="0" max="100" value="0" step="5" />
                         <span id="margin-value"></span> px
                     </div>
 
@@ -112,7 +112,7 @@
                               <!-- Single Color Section -->
                               <div class="dots-options single">
                                   <label for="form-dots-color">Dots Color</label>
-                                  <input id="form-dots-color" type="color" value="#6a1a4c"/>
+                                  <input id="form-dots-color" type="color" value="#4267b2"/>
                               </div>
                               
                               <!-- Gradient Color Section -->
@@ -131,8 +131,8 @@
                               
                                   <label for="form-dots-gradient-color1">Dots Gradient</label>
                                   <div>
-                                      <input id="form-dots-gradient-color1" type="color" value="#6a1a4c"/>
-                                      <input id="form-dots-gradient-color2" type="color" value="#6a1a4c"/>
+                                      <input id="form-dots-gradient-color1" type="color" value="#4267b2"/>
+                                      <input id="form-dots-gradient-color2" type="color" value="#4267b2"/>
                                   </div>
                               
                                   <label for="form-dots-gradient-rotation">Rotation</label>
@@ -177,7 +177,7 @@
                 <div class="cornersSquareOptions single">
                     <label for="form-corners-square-color">Corners Square Color</label>
                     <div class="buttons-container">
-                        <input id="form-corners-square-color" type="color" value="#000000" />
+                        <input id="form-corners-square-color" type="color" value="#4267b2" />
                         <button type="button" id="button-clear-corners-square-color">Clear</button>
                     </div>
                 </div>
@@ -198,8 +198,8 @@
         
                     <label>Dots Gradient</label>
                     <div>
-                        <input type="color" id="form-corners-square-gradient-color1" value="#000000" />
-                        <input type="color" id="form-corners-square-gradient-color2" value="#000000" />
+                        <input type="color" id="form-corners-square-gradient-color1" value="#4267b2" />
+                        <input type="color" id="form-corners-square-gradient-color2" value="#4267b2" />
                     </div>
         
                     <label for="form-corners-square-gradient-rotation">Rotation</label>
@@ -242,7 +242,7 @@
                     <div class="corners-dot single">
                         <label for="corners-dot">Corners Dot Color</label>
                         <div class="buttons-container">
-                            <input id="corners-dot" type="color" value="#000000"/>
+                            <input id="corners-dot" type="color" value="#4267b2"/>
                             <button type="button" id="button-clear-corners-dot">Clear</button>
                         </div>
                     </div>
@@ -262,8 +262,8 @@
                         </div>
                         <label>Dots Gradient</label>
                         <div>
-                            <input id="corners-dot-gradient-color1" type="color" value="#000000"/>
-                            <input id="corners-dot-gradient-color2" type="color" value="#000000"/>
+                            <input id="corners-dot-gradient-color1" type="color" value="#4267b2"/>
+                            <input id="corners-dot-gradient-color2" type="color" value="#4267b2"/>
                         </div>
                         <label for="corners-dot-gradient-rotation">Rotation</label>
                         <div>
@@ -274,56 +274,56 @@
             </div>
             
             
-                      <div class="accordion-header">
-                          <span>Background Options</span>
-                          <i class="fa fa-angle-down icon"></i>
-                      </div>
-                      <div class="accordion-content" id="background-options">
-                        <div class="accordion-content-inner">
-                            <label>Color Type</label>
-                            <div class="space-between-container">
-                                <div style="flex-grow: 1">
-                                    <input id="background-color-single" type="radio" name="background-color-type" checked/>
-                                    <label for="background-color-single">Single color</label>
-                                </div>
-                                <div style="flex-grow: 1">
-                                    <input id="background-color-gradient" type="radio" name="background-color-type"/>
-                                    <label for="background-color-gradient">Color gradient</label>
-                                </div>
-                            </div>
-                    
-                            <!-- Single Color Section -->
-                            <div class="background-options single">
-                                <label for="background-color">Background Color</label>
-                                <input id="background-color" type="color" value="#ffffff"/>
-                            </div>
-                    
-                            <!-- Gradient Color Section -->
-                            <div class="background-options gradient hidden">
-                                <label>Gradient Type</label>
-                                <div class="space-between-container">
-                                    <div style="flex-grow: 1">
-                                        <input id="background-gradient-linear" type="radio" name="background-gradient-type" checked/>
-                                        <label for="background-gradient-linear">Linear</label>
-                                    </div>
-                                    <div style="flex-grow: 1">
-                                        <input id="background-gradient-radial" type="radio" name="background-gradient-type"/>
-                                        <label for="background-gradient-radial">Radial</label>
-                                    </div>
-                                </div>
-                                <label>Background Gradient</label>
-                                <div>
-                                    <input id="background-gradient-color1" type="color" value="#ffffff"/>
-                                    <input id="background-gradient-color2" type="color" value="#ffffff"/>
-                                </div>
-                                <label for="background-gradient-rotation">Rotation</label>
-                                <div>
-                                    <input id="background-gradient-rotation" type="number" min="0" max="360" value="0"/>
-                                </div>
-                            </div>
-                        </div>
+            <div class="accordion-header">
+                <span>Background Options</span>
+                <i class="fa fa-angle-down icon"></i>
+              </div>
+              <div class="accordion-content" id="background-options">
+                <div class="accordion-content-inner">
+                  <label>Color Type</label>
+                  <div class="space-between-container">
+                    <div style="flex-grow: 1">
+                      <input id="background-color-single" type="radio" name="background-color-type" checked/>
+                      <label for="background-color-single">Single color</label>
                     </div>
-                    
+                    <div style="flex-grow: 1">
+                      <input id="background-color-gradient" type="radio" name="background-color-type"/>
+                      <label for="background-color-gradient">Color gradient</label>
+                    </div>
+                  </div>
+              
+                  <!-- Single Color Section -->
+                  <div class="background-options single">
+                    <label for="background-color">Background Color</label>
+                    <input id="background-color" type="color" value="#ffffff"/>
+                  </div>
+              
+                  <!-- Gradient Color Section -->
+                  <div class="background-options gradient hidden">
+                    <label>Gradient Type</label>
+                    <div class="space-between-container">
+                      <div style="flex-grow: 1">
+                        <input id="background-gradient-linear" type="radio" name="background-gradient-type" checked/>
+                        <label for="background-gradient-linear">Linear</label>
+                      </div>
+                      <div style="flex-grow: 1">
+                        <input id="background-gradient-radial" type="radio" name="background-gradient-type"/>
+                        <label for="background-gradient-radial">Radial</label>
+                      </div>
+                    </div>
+                    <label>Background Gradient</label>
+                    <div>
+                      <input id="background-gradient-color1" type="color" value="#ffffff"/>
+                      <input id="background-gradient-color2" type="color" value="#ffffff"/>
+                    </div>
+                    <label for="background-gradient-rotation">Rotation</label>
+                    <div>
+                      <input id="background-gradient-rotation" type="number" min="0" max="360" value="0"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
       
                           <div class="accordion-header">
                               <span>Image Option</span>
@@ -355,6 +355,10 @@
             <p>300px x 300px</p>
             <button class="btn-download" id="btn-dl" type="button">Download</button>
         </div>
+        <!-- Bao gồm thư viện html2canvas -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        
+
     </main>
       <script src="./hehe.js"></script>
 </body>
