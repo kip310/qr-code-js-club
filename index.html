@@ -48,8 +48,11 @@
               <div class="accordion-content-inner">
                 <div class="input-wrap">
                     <label for="form-data">Data</label>
-                    <textarea class="text-box" node="data" node-change-event="oninput" id="form-data" type="text" value="https://qr-code-styling.com">TYPE HERE</textarea>
-                </div>    
+                    <textarea class="text-box" id="form-data" type="text" placeholder="TYPE HERE" oninput="validateURL(this)"></textarea>
+                    <p id="error-message" style="color: red; display: none;">Vui lòng nhập một URL hợp lệ.</p>
+                </div>
+
+                  
                       <div>
                         <label for="form-logo">Logo File</label>
                         <div class="buttons-container">

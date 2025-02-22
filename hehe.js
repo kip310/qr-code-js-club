@@ -138,24 +138,46 @@ let op= {
     cornersDotOptions: {} 
 };
 
-render();
-
-var qrCode;
-function render(){
-    qrCode = new QRCodeStyling(op);
-    let canvasEl = document.querySelector('#canvas');
-    canvasEl.innerHTML = '';
-    qrCode.append(canvasEl);
-    canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
-}
-
-
-// xu li nhap vao data(link)
-const textData = document.querySelector("#form-data");
-textData.addEventListener("keyup", e=>{
-    op.data = e.target.value;
-    render();
-})
+// Hàm kiểm tra URL hợp lệ
+function isValidURL(url) {
+    const urlPattern = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+)(:\d+)?(\/[\w-]*)*(\?.*)?(#.*)?$/i;
+    return urlPattern.test(url);
+  }
+  
+  render();
+  
+  var qrCode;
+  function render(){
+      qrCode = new QRCodeStyling(op);
+      let canvasEl = document.querySelector('#canvas');
+      canvasEl.innerHTML = '';
+      qrCode.append(canvasEl);
+      canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
+  }
+  
+  // Xử lý nhập vào data (link)
+  const textData = document.querySelector("#form-data");
+  textData.addEventListener("keyup", e => {
+      const inputValue = e.target.value.trim();
+      const errorMessageEl = document.querySelector("#error-message");
+      
+      if (!isValidURL(inputValue)) {
+          // Nếu không phải URL hợp lệ, hiển thị thông báo lỗi và không update op.data, render
+          if (errorMessageEl) {
+              errorMessageEl.style.display = "block";
+              errorMessageEl.innerText = "Vui lòng nhập một URL hợp lệ.";
+          }
+          return;
+      } else {
+          if (errorMessageEl) {
+              errorMessageEl.style.display = "none";
+          }
+      }
+      
+      // Nếu URL hợp lệ, update op.data và render lại QR code
+      op.data = inputValue;
+      render();
+  });
 
 // xu li phan login
     const template = `<div class="modal">
