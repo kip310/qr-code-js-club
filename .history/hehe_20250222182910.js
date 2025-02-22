@@ -1,5 +1,4 @@
-import { longVariable } from "./variable.js"; 
-console.log(longVariable);
+// import { longVariable } from './variable.js';  
 
 // xu li accordion
 const accordionHeaders = document.querySelectorAll(".accordion-header");

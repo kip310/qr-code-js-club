@@ -366,7 +366,7 @@ footer{
 
 .login-button {
   position: fixed;
-  margin-left: 1300.200px; /* Đẩy nút login sang bên phải */
+  margin-left: auto; /* Đẩy nút login sang bên phải */
   margin-right: 15px; /* Cách menu một chút */
 }
 
