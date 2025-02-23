@@ -257,15 +257,26 @@ marginInput.addEventListener("input", e=>{
 
 
 const fileInput = document.querySelector("#form-logo");
-fileInput.addEventListener("change", e=>{
+
+fileInput.addEventListener("change", e => {
     let file = e.target.files[0];
+
+    // Kiểm tra xem có file không và có phải là image không
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+        alert("Chỉ chấp nhận file ảnh!");
+        fileInput.value = ""; // Reset input
+        return;
+    }
+
     let reader = new FileReader();
-    reader.onload = ()=> {
+    reader.onload = () => {
         op.image = reader.result;
         render();
     };
     reader.readAsDataURL(file);
 });
+
 
 const cancelButton = document.querySelector("#button-cancel");
 
