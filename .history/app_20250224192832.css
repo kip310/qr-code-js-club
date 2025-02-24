@@ -163,15 +163,15 @@ label {
 }
 .modal-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #eee;
-  border-radius: 10rem;
+  border-radius: 50px;
   cursor: pointer;
   color: #999;
 }
@@ -364,7 +364,7 @@ footer{
   }
 }
 
-.login-button {
+/* .login-button {
   position: fixed;
   margin-left: 1300.200px; 
   margin-right: 15px; 
@@ -374,5 +374,5 @@ footer{
   width: 50px; 
   height: auto;
   margin-left: 10px; 
-}
+} */
 

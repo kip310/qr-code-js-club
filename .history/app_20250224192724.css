@@ -162,18 +162,18 @@ label {
   position: relative;
 }
 .modal-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 10px;
   right: 10px;
   width: 30px;
   height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #eee;
   border-radius: 10rem;
+  background-color: #6a5af9;
+  color: white;
   cursor: pointer;
-  color: #999;
 }
 
 /* Navigation Menu */
@@ -364,7 +364,7 @@ footer{
   }
 }
 
-.login-button {
+/* .login-button {
   position: fixed;
   margin-left: 1300.200px; 
   margin-right: 15px; 
@@ -374,5 +374,5 @@ footer{
   width: 50px; 
   height: auto;
   margin-left: 10px; 
-}
+} */
 

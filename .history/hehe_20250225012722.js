@@ -2,19 +2,19 @@ import { longVariable } from "./variable.js";
 import { template1 } from "./loginTemplate.js";
 
 // xu li phan login
-// const template = template1;
-// const button = document.querySelector(".button");
-// button.addEventListener("click", function(){
-//   if (!document.body.contains(document.querySelector(".modal"))){
-//     document.body.insertAdjacentHTML("afterbegin", template);
-//     document.querySelector(".modal").style.opacity = "1";
-//     document.querySelector(".modal").style.visibility = "visible";
-//   }else{
-//     const modal = document.querySelector(".modal");
-//     modal.parentNode.removeChild(modal);
-//   }
+const template = template1;
+const button = document.querySelector(".button");
+button.addEventListener("click", function(){
+  if (!document.body.contains(document.querySelector(".modal"))){
+    document.body.insertAdjacentHTML("afterbegin", template);
+    document.querySelector(".modal").style.opacity = "1";
+    document.querySelector(".modal").style.visibility = "visible";
+  }else{
+    const modal = document.querySelector(".modal");
+    modal.parentNode.removeChild(modal);
+  }
  
-// });
+});
 
 document.body.addEventListener("click", function(event){
   console.log(event.target);
