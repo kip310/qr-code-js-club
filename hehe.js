@@ -172,9 +172,14 @@ let op= {
 
 // Hàm kiểm tra URL hợp lệ
 function isValidURL(url) {
-  const urlPattern = /^https:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z]{2,63}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
-    return urlPattern.test(url);
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+  } catch {
+    return false;
   }
+}
+  
   
   render();
   
