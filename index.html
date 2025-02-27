@@ -15,32 +15,26 @@
 <body>
     
     <header>
-        <div class="header-logo">
-            <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+        <div class="header-content">
+            <div class="header-logo">
+                <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+            </div>
+    
+            <button class="button login-button">LOGIN HERE</button>
+            <i class="fa fa-bars menu-toggle"></i> <!-- Icon menu -->
         </div>
-        <button class="button login-button">LOGIN HERE</button>
-        <i class="fa fa-bars menu-toggle"></i> <!-- Menu icon moved to the right -->
     </header>      
+    
     <main>
         <ul class="menu">
-            <li class="menu-item">
-              <a href="#" class="menu-link">Home</a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">Working</a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">Working</a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">Working</a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">Working</a>
-            </li>
-          </ul>
-        <div class="accordion">
+            <li class="menu-item"><a href="#" class="menu-link">Home</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+        </ul>
 
+        <div class="accordion">
             <div class="accordion-header">
               <span>Main option</span>
               <i class="fa fa-angle-down icon"></i>
@@ -356,6 +350,7 @@
             <div id="canvas"></div>
             <p>300px x 300px</p>
             <button class="btn-download" id="btn-dl" type="button">Download</button>
+            <button id="saveBtn">Save QR Code</button>
         </div>
         <!-- Bao gồm thư viện html2canvas -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

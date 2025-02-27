@@ -364,11 +364,6 @@ footer{
   }
 }
 
-.login-button {
-  position: fixed;
-  margin-left: 1300.200px; 
-  margin-right: 15px; 
-}
 
 .header-logo img {
   width: 50px; 
@@ -376,3 +371,104 @@ footer{
   margin-left: 10px; 
 }
 
+.accordion, .display {
+  max-width: 90%;
+  margin: auto;
+}
+
+
+
+@media (max-width: 768px) {
+  main {
+      flex-direction: column;
+      align-items: center;
+  }
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+@media (max-width: 500px) {
+  .menu {
+      width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .footerNav ul {
+      flex-direction: column;
+      padding: 0;
+  }
+}
+
+/* Header chính */
+header {
+  width: 100%;
+  height: 60px;
+  background-color: #4CAF50; /* Giữ nguyên màu */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Căn chỉnh logo */
+.header-logo img {
+  height: 50px;
+}
+
+/* Căn chỉnh nội dung header */
+.header-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Nút LOGIN HERE */
+.login-button {
+  padding: 8px 16px;
+  background: white;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  position: relative; /* Giữ nguyên vị trí trong flexbox */
+  margin-right: 20px; /* Giữ khoảng cách với mép phải */
+}
+
+/* Icon menu */
+.menu-toggle {
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+  margin-left: 10px;
+}
+
+/* Khi màn hình nhỏ */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: row;
+  }
+
+  /* Giảm kích thước nút login */
+  .login-button {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  /* Hiển thị icon menu */
+  .menu-toggle {
+    display: block;
+  }
+}
