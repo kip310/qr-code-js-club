@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Generate</title>
     <link rel="icon" type="image/png" href="https://avatars.githubusercontent.com/u/97457434?s=280&v=4">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <link rel="stylesheet" href="./app.css" />
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -13,19 +13,34 @@
 
 </head>
 <body>
-    
-    <header>
-        <div class="header-content">
-            <div class="header-logo">
-                <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+    <header class="header">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <!-- Logo -->
+            <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+
+        <div class="header-title">QR CODE GENERATOR</div>  
+        <!-- Buttons -->
+
+        <!-- login avatar -->
+        <div class="user-menu">
+            <button class="avatar-button" style="display: none;">
+              <img src="./defaultAvatar.png" alt="User Avatar" class="avatar-img2" />
+            </button>
+            <div class="avatar-dropdown" >
+              <button class="dropdown-button history-button">History</button>
+              <button class="dropdown-button logout-button">Logout</button>
             </div>
-    
-            <button class="button login-button">LOGIN HERE</button>
-            <i class="fa fa-bars menu-toggle"></i> <!-- Icon menu -->
+          </div>
+
+        <div>
+            <button class="login-button">Log in</button> 
         </div>
-    </header>      
-    
-    <main>
+    </header>
+    <main class="restricted-content">
         <ul class="menu">
             <li class="menu-item"><a href="#" class="menu-link">Home</a></li>
             <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
@@ -329,9 +344,12 @@
         
 
     </main>
+
       <script type="module" src="./hehe.js"></script>
       <script type="module" src="./supabaseClient.js"></script>
       <script type="module" src="./authentication.js"></script>
+      <script type="module" src="./history.js"></script>
+
       <footer>
         <div class="footerContainer">
             <div class="socialIcons">

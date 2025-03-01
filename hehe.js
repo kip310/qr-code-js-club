@@ -170,6 +170,17 @@ let op= {
     cornersDotOptions: {} 
 };
 
+render();
+  
+var qrCode;
+function render(){
+    qrCode = new QRCodeStyling(op);
+    let canvasEl = document.querySelector('#canvas');
+    canvasEl.innerHTML = '';
+    qrCode.append(canvasEl);
+    canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
+}
+
 // Hàm kiểm tra URL hợp lệ
 function isValidURL(url) {
   try {
@@ -181,16 +192,7 @@ function isValidURL(url) {
 }
   
   
-  render();
-  
-  var qrCode;
-  function render(){
-      qrCode = new QRCodeStyling(op);
-      let canvasEl = document.querySelector('#canvas');
-      canvasEl.innerHTML = '';
-      qrCode.append(canvasEl);
-      canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
-  }
+
   
   // Xử lý nhập vào data (link)
   const textData = document.querySelector("#form-data");
@@ -216,19 +218,6 @@ function isValidURL(url) {
       render();
   });
 
-
-
-
-// xu li phan menu
-const toggle = document.querySelector(".menu-toggle");
-const menu = document.querySelector(".menu");
-
-toggle.addEventListener("click", handleToggleMenu);
-function handleToggleMenu(event){
-    menu.classList.toggle("is-show");
-    toggle.classList.toggle("fa-times");
-    toggle.classList.toggle("fa-bars");
-}
 
 document.addEventListener("click", function(event){
     if (!menu.contains(event.target) && !event.target.matches(".menu-toggle")){
@@ -259,9 +248,9 @@ marginInput.addEventListener("input", e=>{
     render();
 });
 
+
+
 //Upload file để thay đổi hình ảnh logo
-
-
 const fileInput = document.querySelector("#form-logo");
 
 fileInput.addEventListener("change", e => {
@@ -414,111 +403,122 @@ function setupColorOption(configKey, selectors, defaults) {
   }
   
 
-  // Áp dụng cho Dots Options
-  setupColorOption("dotsOptions", {
-    typeSelect: "#form-dots-type",
-    colorInput: "#form-dots-color",
-    gradientInputs: {
+// Áp dụng cho Dots Options
+setupColorOption("dotsOptions", {
+  typeSelect: "#form-dots-type",
+  colorInput: "#form-dots-color",
+  gradientInputs: {
       color1: "#form-dots-gradient-color1",
       color2: "#form-dots-gradient-color2",
       rotation: "#form-dots-gradient-rotation",
       gradientTypeRadioLinear: "#form-dots-gradient-type-linear"
-    },
-    radioSingle: "#form-dots-color-type-single",
-    radioGradient: "#form-dots-color-type-gradient",
-    sectionSingle: ".dots-options.single",
-    sectionGradient: ".dots-options.gradient"
-  }, {
-    color: "#6a1a4c"  // Màu mặc định cho dots
-  });
-  
-  // Áp dụng cho Background Options
-  setupColorOption("backgroundOptions", {
-    // Background không có select kiểu, chỉ có màu đơn và gradient
-    colorInput: "#background-color",
-    gradientInputs: {
-      color1: "#background-gradient-color1",
-      color2: "#background-gradient-color2",
-      rotation: "#background-gradient-rotation",
-      gradientTypeRadioLinear: "#background-gradient-linear"
-    },
-    radioSingle: "#background-color-single",
-    radioGradient: "#background-color-gradient",
-    sectionSingle: ".background-options.single",
-    sectionGradient: ".background-options.gradient"
-  }, {
-    color: "#ffffff"  // Màu nền mặc định
-  });
-  
-  // Áp dụng cho Corners Square Options
-  setupColorOption("cornersSquareOptions", {
-    typeSelect: "#form-corners-square-type",
-    colorInput: "#form-corners-square-color",
-    clearButton: "#button-clear-corners-square-color",
-    gradientInputs: {
+  },
+  radioSingle: "#form-dots-color-type-single",
+  radioGradient: "#form-dots-color-type-gradient",
+  sectionSingle: ".dots-options.single",
+  sectionGradient: ".dots-options.gradient"
+}, {
+  color: "#6a1a4c"  // Màu mặc định cho dots
+});
+
+// Áp dụng cho Background Options (CHỈ CÒN MÀU ĐƠN)
+setupColorOption("backgroundOptions", {
+  colorInput: "#background-color"
+}, {
+  color: "#ffffff"  // Màu nền mặc định
+});
+
+// Áp dụng cho Corners Square Options
+setupColorOption("cornersSquareOptions", {
+  typeSelect: "#form-corners-square-type",
+  colorInput: "#form-corners-square-color",
+  clearButton: "#button-clear-corners-square-color",
+  gradientInputs: {
       color1: "#form-corners-square-gradient-color1",
       color2: "#form-corners-square-gradient-color2",
       rotation: "#form-corners-square-gradient-rotation",
       gradientTypeRadioLinear: "#form-corners-square-gradient-type-linear"
-    },
-    radioSingle: "#form-corners-square-color-type-single",
-    radioGradient: "#form-corners-square-color-type-gradient",
-    sectionSingle: ".cornersSquareOptions.single",
-    sectionGradient: ".cornersSquareOptions.gradient"
-  }, {
-    color: "#ffffff"  // Màu mặc định cho corners square
-  });
-  
-  // Áp dụng cho Corners Dot Options
-  setupColorOption("cornersDotOptions", {
-    typeSelect: "#corners-dot-type",
-    colorInput: "#corners-dot",
-    clearButton: "#button-clear-corners-dot",
-    gradientInputs: {
+  },
+  radioSingle: "#form-corners-square-color-type-single",
+  radioGradient: "#form-corners-square-color-type-gradient",
+  sectionSingle: ".cornersSquareOptions.single",
+  sectionGradient: ".cornersSquareOptions.gradient"
+}, {
+  color: "#ffffff"  // Màu mặc định cho corners square
+});
+
+// Áp dụng cho Corners Dot Options
+setupColorOption("cornersDotOptions", {
+  typeSelect: "#corners-dot-type",
+  colorInput: "#corners-dot",
+  clearButton: "#button-clear-corners-dot",
+  gradientInputs: {
       color1: "#corners-dot-gradient-color1",
       color2: "#corners-dot-gradient-color2",
       rotation: "#corners-dot-gradient-rotation",
       gradientTypeRadioLinear: "#corners-dot-gradient-linear"
-    },
-    radioSingle: "#corners-dot-single",
-    radioGradient: "#corners-dot-gradient",
-    sectionSingle: ".corners-dot.single",
-    sectionGradient: ".corners-dot.gradient"
-  }, {
-    color: "#000000"  // Màu mặc định cho corners dot
-  });
-  
+  },
+  radioSingle: "#corners-dot-single",
+  radioGradient: "#corners-dot-gradient",
+  sectionSingle: ".corners-dot.single",
+  sectionGradient: ".corners-dot.gradient"
+}, {
+  color: "#000000"  // Màu mặc định cho corners dot
+});
+
+
   document.addEventListener("DOMContentLoaded", function() {
     // Lấy các input
     const hideBackgroundDotsCheckbox = document.getElementById("form-hide-background-dots");
     const imageSizeInput = document.getElementById("form-image-size");
     const imageMarginInput = document.getElementById("form-image-margin");
-  
+
+    // Kiểm tra biến op trước khi sử dụng
+    if (typeof op === "undefined") {
+        console.error("Biến 'op' chưa được khai báo!");
+        return;
+    }
+
     // 1. Xử lý checkbox "Hide Background Dots"
-    hideBackgroundDotsCheckbox.addEventListener("change", function() {
-      // checkbox => boolean
-      op.imageOptions.hideBackgroundDots = this.checked;
-      render();
-    });
-  
+    if (hideBackgroundDotsCheckbox) {
+        hideBackgroundDotsCheckbox.checked = op.imageOptions.hideBackgroundDots;
+        hideBackgroundDotsCheckbox.addEventListener("change", function() {
+            op.imageOptions.hideBackgroundDots = this.checked;
+            render();
+        });
+    } else {
+        console.error("Không tìm thấy phần tử #form-hide-background-dots");
+    }
+
     // 2. Xử lý input "Image Size" (giá trị 0..1)
-    imageSizeInput.addEventListener("input", function() {
-      // parseFloat để chuyển thành số thực
-      const val = parseFloat(this.value);
-      // Kiểm tra trong khoảng [0..1], nếu cần
-      if (val >= 0 && val <= 1) {
-        op.imageOptions.imageSize = val;
-        render();
-      }
-    });
-  
+    if (imageSizeInput) {
+        imageSizeInput.value = op.imageOptions.imageSize;
+        imageSizeInput.addEventListener("input", function() {
+            let val = parseFloat(this.value);
+            if (!isNaN(val) && val >= 0 && val <= 1) {
+                op.imageOptions.imageSize = val;
+                render();
+            } else {
+                this.value = op.imageOptions.imageSize; // Reset về giá trị hợp lệ
+            }
+        });
+    } else {
+        console.error("Không tìm thấy phần tử #form-image-size");
+    }
+
     // 3. Xử lý input "Margin" (giá trị >= 0)
-    imageMarginInput.addEventListener("input", function() {
-      const val = parseInt(this.value, 10) || 0;
-      if (val >= 0) {
-        op.imageOptions.margin = val;
-        render();
-      }
-    });
-  });
-  
+    if (imageMarginInput) {
+        imageMarginInput.value = op.imageOptions.margin;
+        imageMarginInput.addEventListener("input", function() {
+            let val = parseInt(this.value, 10);
+            if (!isNaN(val) && val >= 0) {
+                op.imageOptions.margin = val;
+                render();
+            } else {
+                this.value = op.imageOptions.margin; // Reset về giá trị hợp lệ
+            }
+        });
+    } else {
+        console.error("Không tìm thấy phần tử #form-image-margin");
+    }
+});
