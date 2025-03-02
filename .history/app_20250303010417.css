@@ -399,7 +399,7 @@ footer {
   color: white;
   font-size: 16px;
   font-weight: bold;
-  padding: 12px 24px;
+  /* padding: 12px 24px; */
   border-radius: 8px;
   text-align: center;
   text-decoration: none;
@@ -670,8 +670,8 @@ header {
 }
 
 .avatar-img2 {
-  width: 70px; /* Adjust size to match your image */
-  height: 70px;
+  width: 50px; /* Adjust size to match your image */
+  height: 50px;
   border-radius: 50%; /* Circular shape */
   object-fit: cover;
   border: 2px solid #ffffff; /* Optional: Add border for contrast */
@@ -893,9 +893,9 @@ button:hover {
 
 .btn-download{
   position: sticky;
-  top: 330px; 
+  top: 340px; 
 }
 #saveBtn{
   position: sticky;
-  top: 330px; 
+  top: 340px; 
 }

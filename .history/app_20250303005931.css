@@ -670,8 +670,8 @@ header {
 }
 
 .avatar-img2 {
-  width: 70px; /* Adjust size to match your image */
-  height: 70px;
+  width: 50px; /* Adjust size to match your image */
+  height: 50px;
   border-radius: 50%; /* Circular shape */
   object-fit: cover;
   border: 2px solid #ffffff; /* Optional: Add border for contrast */
@@ -884,18 +884,11 @@ button:hover {
 #canvas{ 
   position: sticky;
   top: 10px; 
-}
-
-.size{
-  position: sticky;
-  top: 310px; 
+  padding: 10px;
 }
 
 .btn-download{
   position: sticky;
-  top: 330px; 
-}
-#saveBtn{
-  position: sticky;
-  top: 330px; 
+  top: 326px; 
+  padding: 10px;
 }

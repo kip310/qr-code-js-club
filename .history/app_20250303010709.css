@@ -670,8 +670,8 @@ header {
 }
 
 .avatar-img2 {
-  width: 70px; /* Adjust size to match your image */
-  height: 70px;
+  width: 100px; /* Adjust size to match your image */
+  height: 100px;
   border-radius: 50%; /* Circular shape */
   object-fit: cover;
   border: 2px solid #ffffff; /* Optional: Add border for contrast */
