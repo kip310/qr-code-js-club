@@ -881,26 +881,45 @@ button:hover {
   background: #00695c;
 }
 
-
-/* QR Code vẫn di chuyển khi cuộn */
-.qr-container {
+#canvas{ 
   position: sticky;
-  top: 10px;
+  top: 10px; 
+}
+
+.size{
+  position: sticky;
+  top: 310px; 
+}
+
+.btn-download{
+  position: sticky;
+  top: 330px;
+}
+
+#saveBtn{
+  position: sticky;
+  top: 330px;
+}
+
+.qr-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Giúp căn giữa nội dung */
+  width: fit-content;
+  margin: auto; /* Căn giữa */
+}
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Khoảng cách giữa 2 nút */
+  align-items: center;
+  margin-top: 10px;
+}
+
+.qr-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* Nút luôn nằm dưới QR code */
-.button-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px; /* Để tạo khoảng cách với QR code */
-}
-
-.btn-download, #saveBtn {
-  position: relative; /* Đảm bảo không bị đẩy lên khi cuộn */
-  padding: 10px 20px;
+  gap: 20px; /* Tạo khoảng cách giữa QR code và các nút */
 }
