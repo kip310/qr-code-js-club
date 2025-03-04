@@ -904,3 +904,183 @@ button:hover {
   position: relative; /* Đảm bảo không bị đẩy lên khi cuộn */
   padding: 10px 20px;
 }
+/* Responsive Header */
+.header {
+  background-color: #B5E3E0;
+  color: #333;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 2.8rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.header-logo img {
+  width: 100px;
+  height: auto;
+}
+.header-title {
+  font-size: 3rem;
+  flex-grow: 1;
+  text-align: center;
+}
+.button {
+  background-color: #457B9D;
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #1D3557;
+}
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Accordion (Responsive) */
+.accordion {
+  max-width: 100%;
+  width: 90%;
+  margin: auto;
+}
+.accordion-header {
+  padding: 15px;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion-content {
+  font-size: 1.4rem;
+}
+
+/* Responsive Footer */
+footer {
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
+}
+.footerNav ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+.footerNav ul li a {
+  color: black;
+  margin: 10px;
+  text-decoration: none;
+  font-size: 1.4rem;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+.footerNav ul li a:hover {
+  opacity: 1;
+}
+
+/* Responsive Layout */
+
+@media (max-width: 767px){
+  .header {
+    padding: 1rem;
+  }
+  .header-title {
+    font-size: 1.8rem;
+  }
+  .button {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+  }
+  .accordion-header {
+    font-size: 1.6rem;
+  }
+  .accordion-content {
+    font-size: 1.2rem;
+  }
+  .footerNav ul li a {
+    font-size: 1.2rem;
+  }
+  .display{
+    order: -1;
+    justify-content: center;
+    width: 80%;
+
+  }
+  .accordion{
+    justify-content: center;
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem;
+  }
+  .header-title {
+    font-size: 1.8rem;
+  }
+  .button {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+  }
+  .accordion-header {
+    font-size: 1.6rem;
+  }
+  .accordion-content {
+    font-size: 1.2rem;
+  }
+  .footerNav ul li a {
+    font-size: 1.2rem;
+  }
+  .display{
+    order: -1;
+    justify-content: center;
+
+  }
+} 
+
+/* :)) */
+ 
+
+@media (min-width: 768px) and (max-width: 1023px){  /* Dành cho tablet và laptop */
+  .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1.5rem;
+  }
+  .accordion {
+      width: 40%;  /* Chiếm 40% màn hình */
+  }
+  .display
+  {
+    width: 30%;
+    margin: auto;
+
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+.accordion {
+    width: 30%;  /* Chiếm 40% màn hình */
+}
+.display {
+   margin-right: 10%;
+}
+}
