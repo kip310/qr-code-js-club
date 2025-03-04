@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Generate</title>
+    <link rel="icon" type="image/png" href="/anhlogo.png">
+
+
+    <link rel="stylesheet" href="./app.css" />
+    <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+</head>
+<body>
+    <header class="header">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <!-- Logo -->
+            <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+
+        <div class="header-title">QR CODE GENERATOR</div>  
+        <!-- Buttons -->
+
+        <!-- login avatar -->
+        <div class="user-menu">
+            <button class="avatar-button" style="display: none;">
+              <img src="./defaultAvatar.png" alt="User Avatar" class="avatar-img2" />
+            </button>
+            <div class="avatar-dropdown" >
+              <button class="dropdown-button history-button">History</button>
+              <button class="dropdown-button logout-button">Logout</button>
+            </div>
+          </div>
+
+        <div>
+            <button class="login-button">Log in</button> 
+        </div>
+    </header>
+    <main class="restricted-content">
+        <ul class="menu">
+            <li class="menu-item"><a href="#" class="menu-link">Home</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+            <li class="menu-item"><a href="#" class="menu-link">Working</a></li>
+        </ul>
+
+        <div class="accordion" style="margin-right: 0px">
+            <div class="accordion-header">
+              <span>Main option</span>
+              <i class="fa fa-angle-down icon"></i>
+            </div>
+              
+            <div class="accordion-content">
+              <div class="accordion-content-inner">
+                <div class="input-wrap">
+                    <label for="form-data">Data</label>
+                    <textarea class="text-box" id="form-data" type="text" placeholder="TYPE HERE" oninput="validateURL(this)"></textarea>
+                    <p id="error-message" style="color: red; display: none;">Vui lòng nhập một URL hợp lệ.</p>
+                </div>
+                      <div>
+                        <label for="form-logo">Logo File</label>
+                        <div class="buttons-container">
+                            <input id="form-logo" type="file" />
+                            <button type="button" id="button-cancel">Cancel</button>
+                        </div>
+                      </div>
+                      <label for="form-width">Width</label>
+                    <div>
+                        <input node="width" id="form-width" type="range" min="100" max="500" value="300" step="10" />
+                        <span id="width-value"></span> px
+                    </div>
+
+                    <label for="form-height">Height</label>
+                    <div>
+                        <input node="height" id="form-height" type="range" min="100" max="500" value="300" step="10" />
+                        <span id="height-value"></span> px
+                    </div>
+
+                    <label for="form-margin">Margin</label>
+                    <div>
+                        <input node="margin" id="form-margin" type="range" min="0" max="100" value="0" step="5" />
+                        <span id="margin-value"></span> px
+                    </div>
+
+                    
+
+              </div>
+            </div>
+          
+            <div class="accordion-header">
+              <span>Dots Options</span>
+              <i class="fa fa-angle-down icon"></i>
+            </div>
+      
+            <div class="accordion-content" id="dots-options">
+              <div class="accordion-content-inner">
+                  <!-- <div class="panel"> -->
+                              <label for="form-dots-type">Dots Style</label>
+                              <div>
+                                  <select node="dotsOptions.type" id="form-dots-type">
+                                      <option value="square">Square</option>
+                                      <option value="dots">Dots</option>
+                                      <option value="rounded">Rounded</option>
+                                      <option value="extra-rounded" selected>Extra rounded</option>
+                                      <option value="classy">Classy</option>
+                                      <option value="classy-rounded">Classy rounded</option>
+                                  </select>
+                              </div>
+                              <label>Color Type</label>
+                              <div class="space-between-container">
+                                  <div style="flex-grow: 1">
+                                      <input id="form-dots-color-type-single" type="radio" name="dots-color-type" checked />
+                                      <label for="form-dots-color-type-single">Single color</label>
+                                  </div>
+                                  <div style="flex-grow: 1">
+                                      <input id="form-dots-color-type-gradient" type="radio" name="dots-color-type" />
+                                      <label for="form-dots-color-type-gradient">Color gradient</label>
+                                  </div>
+                              </div>
+                              
+                              <!-- Single Color Section -->
+                              <div class="dots-options single">
+                                  <label for="form-dots-color">Dots Color</label>
+                                  <input id="form-dots-color" type="color" value="#4267b2"/>
+                              </div>
+                              
+                              <!-- Gradient Color Section -->
+                              <div class="dots-options gradient hidden">
+                                  <label for="form-dots-gradient-type">Gradient Type</label>
+                                  <div class="space-between-container">
+                                      <div style="flex-grow: 1">
+                                          <input id="form-dots-gradient-type-linear" type="radio" name="dots-gradient-type" checked />
+                                          <label for="form-dots-gradient-type-linear">Linear</label>
+                                      </div>
+                                      <div style="flex-grow: 1">
+                                          <input id="form-dots-gradient-type-radial" type="radio" name="dots-gradient-type" />
+                                          <label for="form-dots-gradient-type-radial">Radial</label>
+                                      </div>
+                                  </div>
+                              
+                                  <label for="form-dots-gradient-color1">Dots Gradient</label>
+                                  <div>
+                                      <input id="form-dots-gradient-color1" type="color" value="#4267b2"/>
+                                      <input id="form-dots-gradient-color2" type="color" value="#4267b2"/>
+                                  </div>
+                              
+                                  <label for="form-dots-gradient-rotation">Rotation</label>
+                                  <div>
+                                      <input id="form-dots-gradient-rotation" type="number" min="0" max="360" value="0"/>
+                                  </div>
+                              </div>
+                              
+                          <!-- </div> -->
+              </div>
+            </div>   
+      
+            <div class="accordion-header">
+              <span>Corners Square Options</span>
+              <i class="fa fa-angle-down icon"></i>
+          </div>
+          <div class="accordion-content" id="corners-square-options">
+            <div class="accordion-content-inner">
+                <label for="form-corners-square-type">Corners Square Style</label>
+                <div>
+                    <select id="form-corners-square-type">
+                        <option value="">None</option>
+                        <option value="square">Square</option>
+                        <option value="dot">Dot</option>
+                        <option value="extra-rounded" selected>Extra rounded</option>
+                    </select>
+                </div>
+        
+                <label>Color Type</label>
+                <div class="space-between-container">
+                    <div style="flex-grow: 1">
+                        <input id="form-corners-square-color-type-single" type="radio" name="corners-square-color-type" checked />
+                        <label for="form-corners-square-color-type-single">Single color</label>
+                    </div>
+                    <div style="flex-grow: 1">
+                        <input id="form-corners-square-color-type-gradient" type="radio" name="corners-square-color-type" />
+                        <label for="form-corners-square-color-type-gradient">Color gradient</label>
+                    </div>
+                </div>
+        
+                <!-- Single Color Section -->
+                <div class="cornersSquareOptions single">
+                    <label for="form-corners-square-color">Corners Square Color</label>
+                    <div class="buttons-container">
+                        <input id="form-corners-square-color" type="color" value="#4267b2" />
+                        <button type="button" id="button-clear-corners-square-color">Clear</button>
+                    </div>
+                </div>
+        
+                <!-- Gradient Color Section -->
+                <div class="cornersSquareOptions gradient hidden">
+                    <label for="form-corners-square-gradient-type">Gradient Type</label>
+                    <div class="space-between-container">
+                        <div style="flex-grow: 1">
+                            <input id="form-corners-square-gradient-type-linear" type="radio" name="corners-square-gradient-type" checked />
+                            <label for="form-corners-square-gradient-type-linear">Linear</label>
+                        </div>
+                        <div style="flex-grow: 1">
+                            <input id="form-corners-square-gradient-type-radial" type="radio" name="corners-square-gradient-type" />
+                            <label for="form-corners-square-gradient-type-radial">Radial</label>
+                        </div>
+                    </div>
+        
+                    <label>Dots Gradient</label>
+                    <div>
+                        <input type="color" id="form-corners-square-gradient-color1" value="#4267b2" />
+                        <input type="color" id="form-corners-square-gradient-color2" value="#4267b2" />
+                    </div>
+        
+                    <label for="form-corners-square-gradient-rotation">Rotation</label>
+                    <div>
+                        <input id="form-corners-square-gradient-rotation" type="number" min="0" max="360" value="0" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+      
+              <div class="accordion-header">
+                  <span>Corners Dot Options</span>
+                  <i class="fa fa-angle-down icon"></i>
+              </div>
+              <div class="accordion-content" id="corners-dot-options">
+                <div class="accordion-content-inner">
+                    <label for="corners-dot-type">Corners Dot Style</label>
+                    <div>
+                        <select id="corners-dot-type">
+                            <option value="" selected>None</option>
+                            <option value="square">Square</option>
+                            <option value="dot">Dot</option>
+                        </select>
+                    </div>
+                    <label>Color Type</label>
+                    <div class="space-between-container">
+                        <div style="flex-grow: 1">
+                            <input id="corners-dot-single" type="radio" name="corners-dot-color-type" checked/>
+                            <label for="corners-dot-single">Single color</label>
+                        </div>
+                        <div style="flex-grow: 1">
+                            <input id="corners-dot-gradient" type="radio" name="corners-dot-color-type"/>
+                            <label for="corners-dot-gradient">Color gradient</label>
+                        </div>
+                    </div>
+            
+                    <!-- Single Color Section -->
+                    <div class="corners-dot single">
+                        <label for="corners-dot">Corners Dot Color</label>
+                        <div class="buttons-container">
+                            <input id="corners-dot" type="color" value="#4267b2"/>
+                            <button type="button" id="button-clear-corners-dot">Clear</button>
+                        </div>
+                    </div>
+            
+                    <!-- Gradient Color Section -->
+                    <div class="corners-dot gradient hidden">
+                        <label>Gradient Type</label>
+                        <div class="space-between-container">
+                            <div style="flex-grow: 1">
+                                <input id="corners-dot-gradient-linear" type="radio" name="corners-dot-gradient-type" checked/>
+                                <label for="corners-dot-gradient-linear">Linear</label>
+                            </div>
+                            <div style="flex-grow: 1">
+                                <input id="corners-dot-gradient-radial" type="radio" name="corners-dot-gradient-type"/>
+                                <label for="corners-dot-gradient-radial">Radial</label>
+                            </div>
+                        </div>
+                        <label>Dots Gradient</label>
+                        <div>
+                            <input id="corners-dot-gradient-color1" type="color" value="#4267b2"/>
+                            <input id="corners-dot-gradient-color2" type="color" value="#4267b2"/>
+                        </div>
+                        <label for="corners-dot-gradient-rotation">Rotation</label>
+                        <div>
+                            <input id="corners-dot-gradient-rotation" type="number" min="0" max="360" value="0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="accordion-header">
+                <span>Background Options</span>
+                <i class="fa fa-angle-down icon"></i>
+              </div>
+              <div class="accordion-content" id="background-options">
+                <div class="accordion-content-inner">
+                  <label>Color Type</label>
+                  <div class="space-between-container">
+                    <div style="flex-grow: 1">
+                      <input id="background-color-single" type="radio" name="background-color-type" checked/>
+                      <label for="background-color-single">Single color</label>
+                    </div>
+                  </div>
+              
+                  
+                  <div class="background-options single">
+                    <label for="background-color">Background Color</label>
+                    <input id="background-color" type="color" value="#ffffff"/>
+                  </div>
+                </div>
+              </div>
+              
+      
+                          <div class="accordion-header">
+                              <span>Image Option</span>
+                              <i class="fa fa-angle-down icon"></i>
+                          </div>
+                          <div class="accordion-content">
+                              <div class="accordion-content-inner">
+                                  <label for="form-hide-background-dots">Hide Background Dots</label>
+                                  <div>
+                                      <input node="imageOptions.hideBackgroundDots" node-data-field="checked" id="form-hide-background-dots" type="checkbox" checked/>
+                                  </div>
+                                  <label for="form-image-size">Image Size</label>
+                                  <div>
+                                      <input node="imageOptions.imageSize" id="form-image-size" type="number" min="0" max="1" step="0.1" value="0.4"/>
+                                  </div>
+                                  <label for="form-image-margin">Margin</label>
+                                  <div>
+                                      <input node="imageOptions.margin" id="form-image-margin" type="number" min="0" max="10000" value="0"/>
+                                  </div>
+                              </div>
+                          </div>
+                          </div>
+          </div> 
+          
+          <div class="display">
+            <div class="qr-container">
+                <div id="canvas"></div>
+                <p class="size">300px x 300px</p>
+                <div class="button-container">
+                    <button class="btn-download" id="btn-dl" type="button">Download</button>
+                    <button id="saveBtn">Save QR Code</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bao gồm thư viện html2canvas -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        
+
+    </main>
+
+      <script type="module" src="./hehe.js"></script>
+      <script type="module" src="./supabaseClient.js"></script>
+      <script type="module" src="./authentication.js"></script>
+      <script type="module" src="./history.js"></script>
+
+      <footer>
+        <div class="footerContainer">
+            <div class="socialIcons">
+                <a href="https://www.facebook.com/ducdeptraithenayaimachiunoi/"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.instagram.com/duckipdeptrai/"><i class="fa-brands fa-instagram"></i></a>
+                <a href=""><i class="fa-brands fa-twitter"></i></a>
+                <a href=""><i class="fa-brands fa-google-plus"></i></a>
+                <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="footerNav">
+                <ul><li><a href="">Home</a></li>
+                    <li><a href="">News</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact Us</a></li>
+                    <li><a href="Ourteam.html">Our Team</a></li>
+                </ul>
+            </div>
+            
+        </div>
+       
+            <p class="designer">Copyright &copy;2025; Designed by <span class="designer">Team 2 JS Club</span></p>
+    
+    </footer>
+</body>
+</html>
