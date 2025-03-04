@@ -19,7 +19,7 @@ async function logoutUser() {
 
 // History Button Function (Placeholder)
 function showHistory() {
-  window.location.href = "./historyPage/history.html";
+  window.location.href = "./history.html";
 }
 
 // Login with Gmail Function

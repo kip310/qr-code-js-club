@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code History</title>
+    <link rel="icon" type="image/png" href="/anhlogo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./app.css" />
+    <link rel="stylesheet" href="./history.css" /> <!-- New CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script type="module" src="./supabaseClient.js"></script>
+    <script type="module" src="./authentication.js"></script>
+    <script type="module" src="./history.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <!-- <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" /> -->
+        </div>
+        <button class="button login-button">LOGIN HERE</button>
+        <i class="fa fa-bars menu-toggle"></i>
+    </header>
+
+    <main class="restricted-content">
+        <section id="history">
+            <h2>QR Code History</h2>
+            <div id="history-list">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Scanned Date</th>
+                            <th>Link</th>
+                            <th>QR Image</th>
+                            <th>number of scanning</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'91b251b90e06bcc8',t:'MTc0MTEwMTIyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

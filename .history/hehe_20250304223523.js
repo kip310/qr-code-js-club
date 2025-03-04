@@ -1,8 +1,27 @@
 import { longVariable } from "./variable.js"; 
 import { template1 } from "./loginTemplate.js";
-import { saveQRCodeToHistory } from "./history.js";
+// import { saveQRCodeToHistory } from "./historyPage/history.js";
 
-
+// const saveButton = document.getElementById("saveBtn");
+// saveButton.addEventListener("click", async () => {
+//     const qrElement = document.getElementById("canvas");
+//     try {
+//         const canvas = await html2canvas(qrElement, {
+//             useCORS: true,
+//             allowTaint: false
+//         });
+//         const dataUrl = canvas.toDataURL("image/png");
+//         const success = await saveQRCodeToHistory(dataUrl, op.data);
+//         if (success) {
+//             alert("QR Code saved to history!");
+//         } else {
+//             alert("Failed to save QR Code. Please make sure you're logged in.");
+//         }
+//     } catch (error) {
+//         console.error("Error saving QR code:", error);
+//         alert("An error occurred while saving the QR code.");
+//     }
+// });
 
 document.body.addEventListener("click", function(event){
   console.log(event.target);
@@ -508,26 +527,5 @@ setupColorOption("cornersDotOptions", {
         });
     } else {
         console.error("Không tìm thấy phần tử #form-image-margin");
-    }
-});
-
-const saveButton = document.getElementById("saveBtn");
-saveButton.addEventListener("click", async () => {
-    const qrElement = document.getElementById("canvas");
-    try {
-        const canvas = await html2canvas(qrElement, {
-            useCORS: true,
-            allowTaint: false
-        });
-        const dataUrl = canvas.toDataURL("image/png");
-        const success = await saveQRCodeToHistory(dataUrl, op.data);
-        if (success) {
-            alert("QR Code saved to history!");
-        } else {
-            alert("Failed to save QR Code. Please make sure you're logged in.");
-        }
-    } catch (error) {
-        console.error("Error saving QR code:", error);
-        alert("An error occurred while saving the QR code.");
     }
 });
