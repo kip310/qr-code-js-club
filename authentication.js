@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     toggleContentInteractivity(true);
   } else {
     console.log("No user logged in, setting up login button");
-    loginButton.textContent = "LOGIN HERE";
+    loginButton.textContent = "Log in";
     loginButton.replaceWith(loginButton.cloneNode(true));
     document.querySelector(".login-button").addEventListener("click", () => {
       console.log("LOGIN HERE clicked");
