@@ -103,8 +103,8 @@ export const template1 =
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
   .google-login-btn:hover {
-    background-color: #000;
-    color: #fff;
+    background-color: #4ac4e3;
+    color: #fff !important;
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.4);
   }
@@ -116,5 +116,12 @@ export const template1 =
     height: 28px;
     margin-right: 12px;
   }
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: black;
+  }
 </style>
+
 `;
