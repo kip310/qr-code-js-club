@@ -4,16 +4,21 @@ import { supabase } from "./supabaseClient.js";
 console.log("history.js loaded");
 
 // Save QR Code to Supabase History (unchanged, assumed working)
-export async function saveQRCodeToHistory(dataUrl, qrData) {
+export async function saveQRCodeToHistory(dataUrl, originalURL) {
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError || !userData.user) {
         console.log("User not logged in, skipping history save.");
         return false;
     }
 
+    // Tạo tracking URL
+    const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(originalURL)}`;
+
+    // Lưu vào Supabase
     const { error } = await supabase.from("qr_history").insert({
         user_id: userData.user.id,
-        qr_data: qrData,
+        qr_data: trackingURL,  // Lưu tracking URL để tạo QR
+        original_url: originalURL,  // Lưu link gốc
         qr_image: dataUrl,
         created_at: new Date().toISOString(),
         number_of_scanning: 0
@@ -26,7 +31,6 @@ export async function saveQRCodeToHistory(dataUrl, qrData) {
     console.log("QR code saved successfully");
     return true;
 }
-
 async function loadQRCodeHistory() {
     console.log("loadQRCodeHistory called");
     const historyTableBody = document.querySelector("#history-table-body");
@@ -64,7 +68,7 @@ async function loadQRCodeHistory() {
             <tr data-id="${item.id}">
                 <td>${index + 1}</td>
                 <td>${new Date(item.created_at).toLocaleString()}</td>
-                <td><a href="${item.qr_data}" target="_blank">${item.qr_data}</a></td>
+                <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td> <!-- Chỉ hiển thị original_url -->
                 <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
                 <td>${item.number_of_scanning}</td>
                 <td>

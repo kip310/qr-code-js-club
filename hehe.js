@@ -17,19 +17,41 @@ document.body.addEventListener("click", function(event){
 });
 
 
-// xu li accordion
+// Xử lý accordion
 const accordionHeaders = document.querySelectorAll(".accordion-header");
-[...accordionHeaders].forEach((item)=> item.addEventListener("click", handleClickAccordion));
-function handleClickAccordion(event){
-    // console.log(event.target);
-    event.target.nextElementSibling.classList.toggle("is-active");
-    const content = event.target.nextElementSibling;
-    content.style.height = `${content.scrollHeight}px`;
-    if (!content.classList.contains("is-active")){
+
+accordionHeaders.forEach((header) => {
+    header.addEventListener("click", (event) => {
+        handleClickAccordion(event, header);
+    });
+});
+
+function handleClickAccordion(event, clickedHeader) {
+    // Đóng tất cả accordion trước khi mở cái mới
+    accordionHeaders.forEach((header) => {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector(".icon");
+
+        if (header !== clickedHeader) {
+            content.classList.remove("is-active");
+            content.style.height = "0px";
+            icon.classList.remove("fa-angle-up");
+            icon.classList.add("fa-angle-down");
+        }
+    });
+
+    // Mở hoặc đóng accordion được click
+    const content = clickedHeader.nextElementSibling;
+    content.classList.toggle("is-active");
+
+    if (content.classList.contains("is-active")) {
+        content.style.height = `${content.scrollHeight}px`;
+    } else {
         content.style.height = "0px";
     }
 
-    const icon = event.target.querySelector(".icon");
+    // Đổi icon
+    const icon = clickedHeader.querySelector(".icon");
     icon.classList.toggle("fa-angle-down");
     icon.classList.toggle("fa-angle-up");
 }
@@ -132,14 +154,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+const defaultURL = "https://www.facebook.com/fu.jsclub"; 
+const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(defaultURL)}`;
 
-// xu li tao ra qr code
 let op= {
     width: 300,
     height: 300,
     margin: 0,
     type: "svg",
-    data: "https://www.facebook.com/fu.jsclub",
+    data: trackingURL,
     image: longVariable,
     dotsOptions: {
         color: "#4267b2",
@@ -212,7 +235,7 @@ function isValidURL(url) {
     }
 
     // Generate a tracking link that redirects back to your site
-    // const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(userInputURL)}`;
+    const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(userInputURL)}`;
     // Save the tracking URL in Supabase
     async function saveQRToSupabase(trackingURL, userInputURL) {
         const { error } = await supabase
@@ -308,33 +331,6 @@ const options = {
     useCORS: true,      // Hỗ trợ CORS
     allowTaint: false   // Không cho phép các hình ảnh không có CORS
 };
-
-
-// Xử lý nút Download, chuyển QR code thành hình ảnh và tải xuống
-const downloadButton = document.getElementById("btn-dl");
-downloadButton.addEventListener("click", () => {
-    const qrElement = document.getElementById("canvas");
-    // Đặt các options cho html2canvas hỗ trợ CORS
-    const options = {
-        useCORS: true,
-        allowTaint: false
-    };
-    // Chờ QR code render và đảm bảo hình ảnh đã tải xong
-    html2canvas(qrElement, options).then(canvas => {
-        const imageURL = canvas.toDataURL("image/png");
-        const downloadLink = document.createElement("a");
-        downloadLink.href = imageURL;
-        downloadLink.download = "qr-code.png";
-
-        // Kích hoạt download
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-    }).catch(error => {
-        console.error("Lỗi khi chuyển đổi phần tử thành hình ảnh:", error);
-    });
-});
-
 
 
 /**
@@ -544,23 +540,41 @@ setupColorOption("cornersDotOptions", {
     }
 });
 
-const saveButton = document.getElementById("saveBtn");
-saveButton.addEventListener("click", async () => {
+const downloadSaveButton = document.getElementById("btn-dl");
+downloadSaveButton.addEventListener("click", async () => {
     const qrElement = document.getElementById("canvas");
     try {
-        const canvas = await html2canvas(qrElement, {
-            useCORS: true,
-            allowTaint: false
-        });
+        // Chụp ảnh QR Code
+        const canvas = await html2canvas(qrElement, { useCORS: true, allowTaint: false });
         const dataUrl = canvas.toDataURL("image/png");
-        const success = await saveQRCodeToHistory(dataUrl, op.data);
-        if (success) {
-            alert("QR Code saved to history!");
-        } else {
-            alert("Failed to save QR Code. Please make sure you're logged in.");
+
+        // Lấy original URL từ input, nếu trống thì dùng link mặc định
+        let originalURL = document.querySelector("#form-data").value.trim();
+        if (!originalURL) {
+            console.warn("Input trống, sử dụng link mặc định.");
+            originalURL = "https://www.facebook.com/fu.jsclub";  
         }
+
+        // Kiểm tra URL hợp lệ
+        if (!isValidURL(originalURL)) {
+            alert("Vui lòng nhập một URL hợp lệ.");
+            return;
+        }
+
+        // Lưu QR vào Supabase nhưng không hiển thị thông báo
+        await saveQRCodeToHistory(dataUrl, originalURL);
+
+        // Tải xuống QR Code
+        const downloadLink = document.createElement("a");
+        downloadLink.href = dataUrl;
+        downloadLink.download = "qr-code.png";
+
+        // Kích hoạt download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
     } catch (error) {
-        console.error("Error saving QR code:", error);
-        alert("An error occurred while saving the QR code.");
+        console.error("Lỗi khi xử lý QR code:", error);
     }
 });
