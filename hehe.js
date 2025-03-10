@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 const defaultURL = "https://www.facebook.com/fu.jsclub"; 
-const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(defaultURL)}`;
+const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`;
 
 let op= {
     width: 300,
@@ -235,7 +235,7 @@ function isValidURL(url) {
     }
 
     // Generate a tracking link that redirects back to your site
-    const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(userInputURL)}`;
+    const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
     // Save the tracking URL in Supabase
     async function saveQRToSupabase(trackingURL, userInputURL) {
         const { error } = await supabase

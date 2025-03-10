@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script type="module">
+        import { supabase } from "./supabaseClient.js";
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const qrData = decodeURIComponent(urlParams.get("qr_data"));
+
+            if (!qrData) {
+                console.error("No qr_data found. Redirect failed.");
+                return;
+            }
+
+            console.log("Tracking QR scan for:", qrData);
+
+            // Truy vấn Supabase để lấy dữ liệu
+            const { data, error } = await supabase
+            .from("qr_history")
+            .select("*")
+            .eq("original_url", qrData);
+        
+            if (data && data.length > 0) {
+                const newCount = (data[0].number_of_scanning ?? 0) + 1;
+                await supabase.from("qr_history")
+                    .update({ number_of_scanning: newCount })
+                    .eq("id", data[0].id);
+            }
+
+            // Chuyển hướng đến URL gốc
+            setTimeout(() => {
+                console.log("Redirecting to:", qrData);
+                window.location.href = qrData;
+            }, 1500);
+        });
+    </script>
+</head>
+<body>
+    <h2>Redirecting...</h2>
+</body>
+</html>

@@ -6,10 +6,14 @@ console.log("track.js loaded");
 async function trackQRScan(qrData) {
         console.log("Tracking scan for QR data:", qrData);
 
-    const { data, error } = await supabase
-        .from("qr_history")
-        .select("*")
-        .eq("qr_data", window.location.href);
+        const urlParams = new URLSearchParams(window.location.search);
+        const qrData = decodeURIComponent(urlParams.get("qr_data"));
+        
+        const { data, error } = await supabase
+            .from("qr_history")
+            .select("*")
+            .eq("original_url", qrData);
+        
 
     console.log("Supabase Query Result:", data, error);
 

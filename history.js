@@ -12,7 +12,7 @@ export async function saveQRCodeToHistory(dataUrl, originalURL) {
     }
 
     // Tạo tracking URL
-    const trackingURL = `http://127.0.0.1:5502/index.html?qr_data=${encodeURIComponent(originalURL)}`;
+    const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(originalURL)}`;
 
     // Lưu vào Supabase
     const { error } = await supabase.from("qr_history").insert({
