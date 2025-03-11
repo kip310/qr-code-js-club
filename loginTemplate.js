@@ -36,7 +36,7 @@ export const template1 =
     <p class="modal-subtitle">Sign in to continue</p>
     <form>
       <button id="gmail-login-btn" class="google-login-btn">
-        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google Logo" class="google-logo">
+        <img src="/logogoogle.png" alt="Google Logo" class="google-logo">
         <span>Sign in with Google</span>
       </button>
     </form>
@@ -112,8 +112,8 @@ export const template1 =
     animation: buttonClick 0.2s ease-in-out;
   }
   .google-logo {
-    width: 28px;
-    height: 28px;
+    width: 35px;
+    height: 35px;
     margin-right: 12px;
   }
   * {

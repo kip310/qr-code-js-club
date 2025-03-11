@@ -49,11 +49,139 @@
         {
             margin-top: 100px;
         }
+        header {
+    background-color: #B5E3E0;
+    color: #333;
+    text-align: center;
+    padding: 1.5%;
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex
+  ;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    /* overflow: hidden; */
+    overflow: visible;
+    height: 100px;
+  }
+  .header-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #1D3557;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #457B9D, #1D3557);
+    background-clip: text;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 2;
+  }
+  
+
+.header-logo {
+  width: 5vw;
+  height: 5vw;
+  max-width: 70px;
+  max-height: 70px;
+  min-width: 50px;
+  min-height: 50px;
+  border: 0.4vw solid #1D3557; /* Giảm độ dày viền */
+  border-radius: 50%;
+  padding: 0.4vw; /* Giảm padding để logo không quá to */
+  background: white;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15); /* Giảm độ lớn của bóng */
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: moveCircles 6s infinite ease-in-out alternate;
+  z-index: 1;
+}
+.circle1 {
+  width: 60px;
+  height: 60px;
+  background: #89C2D9;
+  top: 20px;
+  left: 10%;
+  animation-delay: 0s;
+}
+.circle2 {
+  width: 100px;
+  height: 100px;
+  background: #61A5C2;
+  top: 20px;
+  right: 15%;
+  animation-delay: 1s;
+}
+.circle3 {
+  width: 80px;
+  height: 80px;
+  background: #A9D6E5;
+  bottom: 30px;
+  left: 30%;
+  animation-delay: 2s;
+}
+.circle4 {
+  width: 120px;
+  height: 120px;
+  background: #BFD7EA;
+  bottom: 60px;
+  right: 10%;
+  animation-delay: 3s;
+}
+.circle5 {
+  width: 100px;
+  height: 100px;
+  background: #457B9D;
+  top: 40px;
+  left: 5%;
+  animation-delay: 4s;
+}
+@keyframes moveCircles {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(30px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); }
+}
+.avatar-img {
+  width: 70;
+  height: 70px;
+  border-radius: 50%;
+
+}
         
     </style>
 </head>
 <body>
-    <h1>Meet Our Team</h1>
+    <header class="header">
+        <div class="circle circle1"></div>
+        <div class="circle circle2"></div>
+        <div class="circle circle3"></div>
+        <div class="circle circle4"></div>
+        <div class="circle circle5"></div>
+        <!-- Logo -->
+        <a href="/index.html" >
+            <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+        </a>
+        
+        <div class="header-title">Our team</div>  
+        <!-- Buttons -->
+    </header>
     <div class="team-container">
         <div class="team-member">
             <img src="/ourteam/duc.png" alt="Member 1">
@@ -82,7 +210,7 @@
      <div class="team-member">
         <img src="/ourteam/giang.png" alt="Member 4">
         <h3>Giang Nguyen</h3>
-        <p>Front end Developer</p>
+        <p>Frontend Developer</p>
         <div class="profile">Text Now</div>
      </div>
      

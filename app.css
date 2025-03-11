@@ -510,42 +510,43 @@ footer {
   animation: moveCircles 6s infinite ease-in-out alternate;
   z-index: 1;
 }
-header {
-  background-color: #B5E3E0;
-  color: #333;
-  text-align: center;
-  padding: 1.5%;
-  font-size: 15px;
-  font-weight: bold;
-  position: relative;
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-  display: flex
-;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-  font-family: 'Montserrat', sans-serif;
-  /* overflow: hidden; */
-  overflow: visible;
-  height: 100px;
-}
-.header-title {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 900;
-  color: #1D3557;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #457B9D, #1D3557);
-  background-clip: text;
-  -webkit-background-clip: text; 
-  -webkit-text-fill-color: transparent;
-  position: relative;
-  z-index: 2;
-}
+  header {
+    background-color: #B5E3E0;
+    color: #333;
+    text-align: center;
+    padding: 1.5%;
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex
+  ;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    /* overflow: hidden; */
+    overflow: visible;
+    height: 100px;
+  }
+  .header-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #1D3557;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #457B9D, #1D3557);
+    background-clip: text;
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 2;
+  }
+  
 
 .header-logo {
   width: 5vw;
@@ -711,6 +712,7 @@ header {
   display: block;
   opacity: 1;
   transform: translateY(0);
+  margin-top: 2.5%;
 }
 
 .avatar-dropdown .dropdown-button {
@@ -781,7 +783,7 @@ header {
 .dropdown-button:hover {
   background: #f0f0f0;
 }
-/*sửa header bé lại*/
+
 
 /* Accordion styles */
 .accordion {
