@@ -338,19 +338,7 @@ footer {
 
 
 
-/* Khi màn hình nhỏ */
-@media (max-width: 768px) {
-  .header-content {
-    flex-direction: row;
-  }
 
-
-
-  /* Hiển thị icon menu */
-  .menu-toggle {
-    display: block;
-  }
-}
 .btn-download {
   display: inline-block;
   background: #4CAF50; /* Màu xanh lá */
@@ -462,51 +450,50 @@ footer {
   }
 }
 /*header*/
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: moveCircles 6s infinite ease-in-out alternate;
-  z-index: 1;
+/* Reset cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-  header {
-    background-color: #B5E3E0;
-    color: #333;
-    text-align: center;
-    padding: 1.5%;
-    font-size: 15px;
-    font-weight: bold;
-    position: relative;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    display: flex
-  ;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    font-family: 'Montserrat', sans-serif;
-    /* overflow: hidden; */
-    overflow: visible;
-    height: 100px;
-  }
-  .header-title {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 900;
-    color: #1D3557;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #457B9D, #1D3557);
-    background-clip: text;
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    z-index: 2;
-  }
-  
 
+/* Header cơ bản */
+header {
+  background-color: #B5E3E0;
+  color: #333;
+  padding: 1.5%;
+  position: relative;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  font-family: 'Montserrat', sans-serif;
+  height: 100px;
+  overflow: visible;
+  z-index: 10;
+}
+
+/* Header Title */
+.header-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 900;
+  color: #1D3557;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #457B9D, #1D3557);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Logo */
 .header-logo {
   width: 5vw;
   height: 5vw;
@@ -514,11 +501,11 @@ footer {
   max-height: 70px;
   min-width: 50px;
   min-height: 50px;
-  border: 0.4vw solid #1D3557; /* Giảm độ dày viền */
+  border: 0.4vw solid #1D3557;
   border-radius: 50%;
-  padding: 0.4vw; /* Giảm padding để logo không quá to */
+  padding: 0.4vw;
   background: white;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15); /* Giảm độ lớn của bóng */
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 2;
   display: flex;
@@ -526,6 +513,29 @@ footer {
   justify-content: center;
 }
 
+/* Login Button */
+.login-button {
+  background-color: #010101;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #d44179;
+  transform: scale(1.1);
+}
+
+.login-button:active {
+  transform: scale(0.97);
+}
+
+/* Circles Animation */
 .circle {
   position: absolute;
   border-radius: 50%;
@@ -533,50 +543,114 @@ footer {
   animation: moveCircles 6s infinite ease-in-out alternate;
   z-index: 1;
 }
-.circle1 {
-  width: 60px;
-  height: 60px;
-  background: #89C2D9;
-  top: 20px;
-  left: 10%;
-  animation-delay: 0s;
-}
-.circle2 {
-  width: 100px;
-  height: 100px;
-  background: #61A5C2;
-  top: 20px;
-  right: 15%;
-  animation-delay: 1s;
-}
-.circle3 {
-  width: 80px;
-  height: 80px;
-  background: #A9D6E5;
-  bottom: 30px;
-  left: 30%;
-  animation-delay: 2s;
-}
-.circle4 {
-  width: 120px;
-  height: 120px;
-  background: #BFD7EA;
-  bottom: 60px;
-  right: 10%;
-  animation-delay: 3s;
-}
-.circle5 {
-  width: 100px;
-  height: 100px;
-  background: #457B9D;
-  top: 40px;
-  left: 5%;
-  animation-delay: 4s;
-}
+
+.circle1 { width: 60px; height: 60px; background: #89C2D9; top: 20px; left: 10%; animation-delay: 0s; }
+.circle2 { width: 100px; height: 100px; background: #61A5C2; top: 20px; right: 15%; animation-delay: 1s; }
+.circle3 { width: 80px; height: 80px; background: #A9D6E5; bottom: 30px; left: 30%; animation-delay: 2s; }
+.circle4 { width: 120px; height: 120px; background: #BFD7EA; bottom: 60px; right: 10%; animation-delay: 3s; }
+.circle5 { width: 100px; height: 100px; background: #457B9D; top: 40px; left: 5%; animation-delay: 4s; }
+
 @keyframes moveCircles {
   0% { transform: translateY(0) scale(1); }
   50% { transform: translateY(30px) scale(1.1); }
   100% { transform: translateY(0) scale(1); }
+}
+
+/* Responsive Design */
+
+/* Màn hình dưới 768px (Tablet và Mobile) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  .header-title {
+    font-size: 24px;
+    margin: 10px 0;
+    letter-spacing: 2px;
+  }
+
+  .header-logo {
+    width: 60px;
+    height: 60px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 2px solid #1D3557;
+    padding: 2px;
+  }
+
+  .login-button {
+    font-size: 16px;
+    padding: 12px 24px;
+    margin-top: 10px;
+  }
+
+  .circle {
+    display: none; /* Ẩn các vòng tròn trên màn hình nhỏ để tránh lộn xộn */
+  }
+
+  .user-menu {
+    margin-top: 10px;
+  }
+}
+
+/* Màn hình dưới 480px (Mobile nhỏ) */
+@media (max-width: 480px) {
+  header {
+    padding: 0.8rem;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .header-title {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+
+  .header-logo {
+    width: 50px;
+    height: 50px;
+    min-width: 35px;
+    min-height: 35px;
+    border: 1.5px solid #1D3557;
+  }
+
+  .login-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .user-menu .avatar-img2 {
+    width: 50px;
+    height: 50px;
+  }
+
+  .avatar-dropdown {
+    min-width: 120px;
+    right: 5px;
+    top: 70px;
+  }
+}
+
+/* Màn hình trên 1024px (Desktop lớn) */
+@media (min-width: 1024px) {
+  header {
+    padding: 2%;
+  }
+
+  .header-title {
+    font-size: 36px;
+    letter-spacing: 4px;
+  }
+
+  .login-button {
+    font-size: 22px;
+    padding: 18px 36px;
+  }
 }
 .login-button {
   background-color: #010101;
