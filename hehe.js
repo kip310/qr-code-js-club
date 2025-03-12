@@ -543,6 +543,8 @@ setupColorOption("cornersDotOptions", {
 const downloadSaveButton = document.getElementById("btn-dl");
 downloadSaveButton.addEventListener("click", async () => {
     const qrElement = document.getElementById("canvas");
+    const toggleScan = document.getElementById("toggleScan").checked; // Kiểm tra toggle
+
     try {
         // Chụp ảnh QR Code
         const canvas = await html2canvas(qrElement, { useCORS: true, allowTaint: false });
@@ -561,8 +563,10 @@ downloadSaveButton.addEventListener("click", async () => {
             return;
         }
 
-        // Lưu QR vào Supabase nhưng không hiển thị thông báo
-        await saveQRCodeToHistory(dataUrl, originalURL);
+        // Nếu tracking được bật, lưu vào Supabase
+        if (toggleScan) {
+            await saveQRCodeToHistory(dataUrl, originalURL);
+        }
 
         // Tải xuống QR Code
         const downloadLink = document.createElement("a");

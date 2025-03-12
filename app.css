@@ -900,7 +900,9 @@ button:hover {
   position: relative; /* Đảm bảo không bị đẩy lên khi cuộn */
   padding: 10px 20px;
 }
-
+.switch {
+  margin-top: 15px; /* Điều chỉnh khoảng cách */
+}
 /* Accordion styles */
 .accordion {
   border: 1px;
