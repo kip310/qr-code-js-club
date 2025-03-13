@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const defaultURL = "https://www.facebook.com/fu.jsclub"; 
 // const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`;
-const trackingURL = `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`;
+//const trackingURL = `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`;
 
 
 let op= {
@@ -164,7 +164,7 @@ let op= {
     height: 300,
     margin: 0,
     type: "svg",
-    data: trackingURL,
+    data: defaultURL,
     image: longVariable,
     dotsOptions: {
         color: "#4267b2",
@@ -204,69 +204,84 @@ function isValidURL(url) {
   }
 }
   
-  
+   //const trackingURL = `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
+    //const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
 
-  
-  // Xử lý nhập vào data (link)
-  const textData = document.querySelector("#form-data");
-  textData.addEventListener("keyup", e => {
-      const inputValue = e.target.value.trim();
-      const errorMessageEl = document.querySelector("#error-message");
-      
-      if (!isValidURL(inputValue)) {
-          // Nếu không phải URL hợp lệ, hiển thị thông báo lỗi và không update op.data, render
-          if (errorMessageEl) {
-              errorMessageEl.style.display = "block";
-              errorMessageEl.innerText = "Vui lòng nhập một URL hợp lệ.";
-          }
-          return;
-      } else {
-          if (errorMessageEl) {
-              errorMessageEl.style.display = "none";
-          }
-      }
-      
-      // Nếu URL hợp lệ, update op.data và render lại QR code
-    //   op.data = inputValue;
-    //   render();
-    const userInputURL = inputValue.trim();
+// Handle input data (link)
+const textData = document.querySelector("#form-data");
+const toggleScan = document.getElementById("toggleScan");
 
-    if (!isValidURL(userInputURL)) {
-        alert("Please enter a valid URL.");
-        return;
+async function generateQRCode() {
+    const errorMessageEl = document.querySelector("#error-message");
+
+    // Get input value, use default URL if empty
+    let userInputURL = textData.value.trim();
+    if (!userInputURL) {
+        console.warn("Input is empty, using default URL.");
+        userInputURL = "https://www.facebook.com/fu.jsclub";
     }
 
-    // Generate a tracking link that redirects back to your site
-    // const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
-    const trackingURL = `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
+    // Validate URL
+    if (!isValidURL(userInputURL)) {
+        errorMessageEl.style.display = "block";
+        errorMessageEl.innerText = "Please enter a valid URL.";
+        return;
+    } else {
+        errorMessageEl.style.display = "none";
+    }
 
-    // Save the tracking URL in Supabase
-    async function saveQRToSupabase(trackingURL, userInputURL) {
-        const { error } = await supabase
-            .from("qr_history")
-            .insert([
-                { qr_data: trackingURL, original_url: userInputURL, number_of_scanning: 0 }
-            ]);
+    // Check tracking toggle state
+    const qrData = toggleScan.checked  
+        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}` 
+        : userInputURL; 
+
+    // Cập nhật và render lại mã QR
+    renderQRCode(qrData);
+
+    // Save to Supabase
+    await saveQRToSupabase(qrData, userInputURL);
+}
+
+// Hàm để cập nhật mã QR
+function renderQRCode(qrData) {
+    console.log("Updating QR code with data:", qrData); // Debugging
+    op.data = qrData;
+    render(); // Gọi lại render() để cập nhật QR
+}
+
+// Lưu QR code vào Supabase
+async function saveQRToSupabase(qrData, userInputURL) {
+    try {
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+        if (userError || !userData.user) {
+            console.log("User not logged in, skipping history save.");
+            return false;
+        }
+
+        const { error } = await supabase.from("qr_history").insert({
+            user_id: userData.user.id,
+            qr_data: qrData,  
+            original_url: userInputURL,
+            number_of_scanning: 0,
+            created_at: new Date().toISOString()
+        });
 
         if (error) {
-            console.error("Error saving QR:", error);
-        } else {
-            console.log("QR saved successfully:", trackingURL);
+            console.error("Error saving QR to Supabase:", error);
+            return false;
         }
+
+        console.log("QR saved successfully:", qrData);
+        return true;
+    } catch (error) {
+        console.error("Unexpected error while saving QR:", error);
+        return false;
     }
+}
 
-    // Call the function when generating the QR code
-    saveQRToSupabase(trackingURL, userInputURL);
-
-
-
-    // Now use `trackingURL` instead of `userInputURL` for QR code
-    op.data = trackingURL;
-    render();
-
-  });
-
-
+// Event listener
+textData.addEventListener("keyup", generateQRCode);
+toggleScan.addEventListener("change", generateQRCode);
 document.addEventListener("click", function(event){
     if (!menu.contains(event.target) && !event.target.matches(".menu-toggle")){
         menu.classList.remove("is-show");
@@ -544,45 +559,42 @@ setupColorOption("cornersDotOptions", {
     }
 });
 
+// Handle download
 const downloadSaveButton = document.getElementById("btn-dl");
 downloadSaveButton.addEventListener("click", async () => {
     const qrElement = document.getElementById("canvas");
-    const toggleScan = document.getElementById("toggleScan").checked; // Kiểm tra toggle
+    const isTrackingEnabled = toggleScan.checked;
 
     try {
-        // Chụp ảnh QR Code
+        // Capture QR Code image
         const canvas = await html2canvas(qrElement, { useCORS: true, allowTaint: false });
         const dataUrl = canvas.toDataURL("image/png");
 
-        // Lấy original URL từ input, nếu trống thì dùng link mặc định
-        let originalURL = document.querySelector("#form-data").value.trim();
+        // Get the original URL
+        let originalURL = textData.value.trim();
         if (!originalURL) {
-            console.warn("Input trống, sử dụng link mặc định.");
+            console.warn("Input is empty, using default URL.");
             originalURL = "https://www.facebook.com/fu.jsclub";  
         }
 
-        // Kiểm tra URL hợp lệ
+        // Validate URL
         if (!isValidURL(originalURL)) {
-            alert("Vui lòng nhập một URL hợp lệ.");
+            alert("Please enter a valid URL.");
             return;
         }
 
-        // Nếu tracking được bật, lưu vào Supabase
-        if (toggleScan) {
-            await saveQRCodeToHistory(dataUrl, originalURL);
-        }
+        // Save to Supabase
+        await saveQRCodeToHistory(dataUrl, originalURL, isTrackingEnabled);
 
-        // Tải xuống QR Code
+        // Download
         const downloadLink = document.createElement("a");
         downloadLink.href = dataUrl;
         downloadLink.download = "qr-code.png";
-
-        // Kích hoạt download
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
 
     } catch (error) {
-        console.error("Lỗi khi xử lý QR code:", error);
+        console.error("Error processing QR code:", error);
     }
 });

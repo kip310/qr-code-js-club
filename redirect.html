@@ -4,25 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS -->
     <script type="module">
         import { supabase } from "./supabaseClient.js";
 
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const qrData = decodeURIComponent(urlParams.get("qr_data"));
+            const loadingElement = document.getElementById("loading");
+            const messageElement = document.getElementById("message");
 
             if (!qrData) {
                 console.error("No qr_data found. Redirect failed.");
+                messageElement.textContent = "Error: No QR data found.";
+                loadingElement.style.display = "none"; // Hide loading
                 return;
             }
 
             console.log("Tracking QR scan for:", qrData);
 
-            // Truy vấn Supabase để lấy dữ liệu
+            // Query Supabase for existing QR data
             const { data, error } = await supabase
-            .from("qr_history")
-            .select("*")
-            .eq("original_url", qrData);
+                .from("qr_history")
+                .select("*")
+                .eq("original_url", qrData);
         
             if (data && data.length > 0) {
                 const newCount = (data[0].number_of_scanning ?? 0) + 1;
@@ -31,15 +36,30 @@
                     .eq("id", data[0].id);
             }
 
-            // Chuyển hướng đến URL gốc
+            // Update message before redirecting
+            messageElement.textContent = "Redirecting now...";
+
+            // Hide loading before redirect
             setTimeout(() => {
                 console.log("Redirecting to:", qrData);
+                loadingElement.style.display = "none";
                 window.location.href = qrData;
             }, 1500);
         });
     </script>
 </head>
-<body>
-    <h2>Redirecting...</h2>
+<body class="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <h2 id="message" class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Processing your request...</h2>
+
+    <!-- Loading Effect -->
+    <div id="loading" class="flex gap-4 p-4 flex-wrap justify-center">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/173880/loading-arrows.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/491270/loading-spinner.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/474682/loading.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/199956/loading-loader.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/169757/loading-process.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/70469/loading.svg" alt="Loading icon">
+        <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/448500/loading.svg" alt="Loading icon">
+    </div>
 </body>
 </html>

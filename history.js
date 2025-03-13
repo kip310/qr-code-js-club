@@ -4,23 +4,24 @@ import { supabase } from "./supabaseClient.js";
 console.log("history.js loaded");
 
 // Save QR Code to Supabase History (unchanged, assumed working)
-export async function saveQRCodeToHistory(dataUrl, originalURL) {
+export async function saveQRCodeToHistory(dataUrl, originalURL, trackEnabled) {
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError || !userData.user) {
         console.log("User not logged in, skipping history save.");
         return false;
     }
 
-    // Tạo tracking URL
-    // const trackingURL = `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(originalURL)}`;
-    const trackingURL = `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(originalURL)}`;
+    // If tracking is enabled, generate tracking URL; otherwise, use the original
+    const qrData = trackEnabled 
+    //`https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
+        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`
+        : originalURL;
 
-
-    // Lưu vào Supabase
+    // Save to Supabase
     const { error } = await supabase.from("qr_history").insert({
         user_id: userData.user.id,
-        qr_data: trackingURL,  // Lưu tracking URL để tạo QR
-        original_url: originalURL,  // Lưu link gốc
+        qr_data: qrData,  // Save either tracking URL or original URL
+        original_url: originalURL,
         qr_image: dataUrl,
         created_at: new Date().toISOString(),
         number_of_scanning: 0
@@ -30,7 +31,8 @@ export async function saveQRCodeToHistory(dataUrl, originalURL) {
         console.error("Error saving QR code to history:", error);
         return false;
     }
-    console.log("QR code saved successfully");
+
+    console.log(`QR code saved successfully (${trackEnabled ? "with tracking" : "without tracking"})`);
     return true;
 }
 async function loadQRCodeHistory() {
@@ -66,13 +68,19 @@ async function loadQRCodeHistory() {
     }
 
     historyTableBody.innerHTML = data.map((item, index) => {
+        // Nếu tracking không bật (qr_data === original_url), hiển thị "No Tracking"
+        const displayedQRData = (item.qr_data === item.original_url) ? "No Tracking" : `<a href="${item.qr_data}" target="_blank">${item.qr_data}</a>`;
+
+        // Nếu tracking bị tắt, số lượt quét sẽ hiển thị "No Tracking"
+        const displayedScans = (item.qr_data === item.original_url) ? "No Tracking" : item.number_of_scanning;
+
         return `
             <tr data-id="${item.id}">
                 <td>${index + 1}</td>
                 <td>${new Date(item.created_at).toLocaleString()}</td>
-                <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td> <!-- Chỉ hiển thị original_url -->
+                <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td> <!-- Always show original URL -->
                 <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
-                <td>${item.number_of_scanning}</td>
+                <td>${displayedScans}</td> <!-- Show "No Tracking" for number_of_scanning when tracking is off -->
                 <td>
                     <button class="download-btn" data-url="${item.qr_image}">Download</button>
                     <button class="delete-btn" data-id="${item.id}">Delete</button>
@@ -81,7 +89,7 @@ async function loadQRCodeHistory() {
         `;
     }).join("");
 
-    // Gán sự kiện xóa
+    // Attach delete event listeners
     document.querySelectorAll(".delete-btn").forEach((btn) => {
         btn.addEventListener("click", async (e) => {
             const qrId = e.target.getAttribute("data-id");
@@ -89,7 +97,7 @@ async function loadQRCodeHistory() {
         });
     });
 
-    // Gán sự kiện tải về
+    // Attach download event listeners
     document.querySelectorAll(".download-btn").forEach((btn) => {
         btn.addEventListener("click", (e) => {
             const imageUrl = e.target.getAttribute("data-url");
@@ -97,6 +105,7 @@ async function loadQRCodeHistory() {
         });
     });
 }
+
 
 async function deleteQRCode(qrId) {
     if (!confirm("Bạn có chắc muốn xóa QR Code này?")) return;
