@@ -62,10 +62,10 @@
               
             <div class="accordion-content">
               <div class="accordion-content-inner">
+                <p id="error-message" style="color: red; display: none;">Vui lòng nhập một URL hợp lệ.</p>
                 <div class="input-wrap">
                     <label for="form-data">Data</label>
                     <textarea class="text-box" id="form-data" type="text" placeholder="TYPE HERE" oninput="validateURL(this)"></textarea>
-                    <p id="error-message" style="color: red; display: none;">Vui lòng nhập một URL hợp lệ.</p>
                 </div>
                       <div>
                         <label for="form-logo">Logo File</label>
@@ -91,6 +91,8 @@
                         <input node="margin" id="form-margin" type="range" min="0" max="100" value="0" step="5" />
                         <span id="margin-value"></span> px
                     </div>
+                    <div style="width: 100px; height: 30px; background-color: white; border: 1px solid rgb(255, 255, 255);"></div>
+
 
                     
 
