@@ -232,7 +232,7 @@ async function generateQRCode() {
 
     // Check tracking toggle state
     const qrData = toggleScan.checked  
-        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}` 
+        ? `http://127.0.0.1:5502/redirect.html?qr_data=${encodeURIComponent(userInputURL)}` 
         : userInputURL; 
 
     // Cập nhật và render lại mã QR
@@ -559,34 +559,42 @@ setupColorOption("cornersDotOptions", {
     }
 });
 
-// Handle download
 const downloadSaveButton = document.getElementById("btn-dl");
 downloadSaveButton.addEventListener("click", async () => {
     const qrElement = document.getElementById("canvas");
     const isTrackingEnabled = toggleScan.checked;
 
     try {
-        // Capture QR Code image
-        const canvas = await html2canvas(qrElement, { useCORS: true, allowTaint: false });
+        // Đảm bảo QR Code có kích thước cố định trước khi chụp
+        qrElement.style.width = `${op.width}px`;
+        qrElement.style.height = `${op.height}px`;
+
+        // Chụp ảnh QR Code với kích thước chuẩn
+        const canvas = await html2canvas(qrElement, {
+            useCORS: true,
+            allowTaint: false,
+            scale: 1 // Đảm bảo không bị thay đổi do DPI của màn hình
+        });
+
         const dataUrl = canvas.toDataURL("image/png");
 
-        // Get the original URL
+        // Lấy URL gốc
         let originalURL = textData.value.trim();
         if (!originalURL) {
             console.warn("Input is empty, using default URL.");
-            originalURL = "https://www.facebook.com/fu.jsclub";  
+            originalURL = "https://www.facebook.com/fu.jsclub";
         }
 
-        // Validate URL
+        // Kiểm tra URL hợp lệ
         if (!isValidURL(originalURL)) {
             alert("Please enter a valid URL.");
             return;
         }
 
-        // Save to Supabase
+        // Lưu vào Supabase
         await saveQRCodeToHistory(dataUrl, originalURL, isTrackingEnabled);
 
-        // Download
+        // Tải ảnh xuống
         const downloadLink = document.createElement("a");
         downloadLink.href = dataUrl;
         downloadLink.download = "qr-code.png";

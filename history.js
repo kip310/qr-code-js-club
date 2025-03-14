@@ -14,7 +14,7 @@ export async function saveQRCodeToHistory(dataUrl, originalURL, trackEnabled) {
     // If tracking is enabled, generate tracking URL; otherwise, use the original
     const qrData = trackEnabled 
     //`https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
-        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(defaultURL)}`
+        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(originalURL)}`
         : originalURL;
 
     // Save to Supabase
