@@ -47,7 +47,7 @@
 }
 
 .download-btn {
-    background: #4CAF50;
+    background: #61A5C2;
     color: white;
     padding: 6px 12px;
     border: none;
@@ -58,7 +58,7 @@
 }
 
 .download-btn:hover {
-    background: #45a049;
+    background: #457B9D;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -117,3 +117,184 @@
         max-width: 40px;
     }
 }
+/*header*/
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Header cơ bản */
+  header {
+    background-color: #B5E3E0;
+    color: #333;
+    padding: 1.5%;
+    position: relative;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    height: 100px;
+    overflow: visible;
+    z-index: 10;
+  }
+  
+  /* Header Title */
+  .header-title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    color: #1D3557;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #457B9D, #1D3557);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 2;
+  }
+
+
+  /*design lai table*/
+  
+.history-table {
+    width: 90%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-size: 14px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.history-table th,
+.history-table td {
+    border: 1px solid #d1e8e6; 
+    padding: 12px;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #B5E3E0; 
+    color: #333; 
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.history-table td {
+    color: #444;
+}
+
+.history-table tr:nth-child(even) {
+    background-color: #E6F3F2; 
+}
+
+.history-table tr:nth-child(odd) {
+    background-color: #ffffff; /* White for odd rows */
+}
+
+.history-table tr:hover {
+    background-color: #A8D5E2; /* Slightly darker pastel sea blue on hover */
+    transition: background-color 0.3s ease;
+}
+
+.qr-image {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.download-btn {
+    background: #A8D5E2; 
+    color: #333; 
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background: #8EC7D2;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+#history {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#history h2 {
+    color: #1D3557;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .history-table th,
+    .history-table td {
+        padding: 8px;
+    }
+
+    .qr-image {
+        max-width: 60px;
+    }
+
+    .download-btn {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .history-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .history-table th,
+    .history-table td {
+        min-width: 100px;
+    }
+
+    .qr-image {
+        max-width: 40px;
+    }
+}
+
+/* Header styles remain unchanged */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #B5E3E0; 
+    color: #333;
+    padding: 1
