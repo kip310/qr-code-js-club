@@ -129,7 +129,10 @@
   header {
     background-color: #B5E3E0;
     color: #333;
+    text-align: center;
     padding: 1.5%;
+    font-size: 15px;
+    font-weight: bold;
     position: relative;
     box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -138,13 +141,10 @@
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     font-family: 'Montserrat', sans-serif;
-    height: 100px;
     overflow: visible;
-    z-index: 10;
-  }
-  
-  /* Header Title */
-  .header-title {
+    height: 100px;
+}
+.header-title {
     flex-grow: 1;
     text-align: center;
     font-size: 30px;
@@ -159,8 +159,48 @@
     -webkit-text-fill-color: transparent;
     position: relative;
     z-index: 2;
-  }
-
+}
+.header-logo {
+    width: 5vw;
+    height: 5vw;
+    max-width: 70px;
+    max-height: 70px;
+    min-width: 50px;
+    min-height: 50px;
+    border: 0.4vw solid #1D3557;
+    border-radius: 50%;
+    padding: 0.4vw;
+    background: white;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: moveCircles 6s infinite ease-in-out alternate;
+    z-index: 1;
+}
+.circle1 { width: 60px; height: 60px; background: #89C2D9; top: 20px; left: 10%; animation-delay: 0s; }
+        .circle2 { width: 100px; height: 100px; background: #61A5C2; top: 20px; right: 15%; animation-delay: 1s; }
+        .circle3 { width: 80px; height: 80px; background: #A9D6E5; bottom: 30px; left: 30%; animation-delay: 2s; }
+        .circle4 { width: 120px; height: 120px; background: #BFD7EA; bottom: 60px; right: 10%; animation-delay: 3s; }
+        .circle5 { width: 100px; height: 100px; background: #457B9D; top: 40px; left: 5%; animation-delay: 4s; }
+        @keyframes moveCircles {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(30px) scale(1.1); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        .avatar-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+        }
+ 
 
   /*design lai table*/
   
@@ -298,3 +338,73 @@ header {
     background-color: #B5E3E0; 
     color: #333;
     padding: 1
+}
+/* Nút Download */
+.download-btn {
+    background: linear-gradient(135deg, #62d6cb, #4CAF50); /* Gradient từ teal sang xanh lá */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #55c2b8, #45a049);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Nút Delete */
+.delete-btn {
+    background: linear-gradient(135deg, #ff6b6b, #e63946); /* Gradient từ đỏ nhạt sang đỏ đậm */
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-left: 8px; /* Khoảng cách với nút Download */
+}
+
+.delete-btn:hover {
+    background: linear-gradient(135deg, #ff8787, #d62828);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.delete-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive cho các nút */
+@media (max-width: 768px) {
+    .download-btn, .delete-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .download-btn, .delete-btn {
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+}

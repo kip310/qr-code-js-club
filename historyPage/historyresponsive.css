@@ -1,0 +1,47 @@
+/* historyresponsive.css */
+
+/* Responsive Design cho màn hình dưới 768px */
+@media (max-width: 768px) {
+    .history-table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .history-table th,
+    .history-table td {
+        padding: 8px;
+    }
+
+    .qr-image {
+        max-width: 60px;
+    }
+
+    .download-btn,
+    .delete-btn {
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+/* Responsive Design cho màn hình dưới 480px */
+@media (max-width: 480px) {
+    .history-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .history-table th,
+    .history-table td {
+        min-width: 100px;
+    }
+
+    .qr-image {
+        max-width: 40px;
+    }
+
+    .download-btn,
+    .delete-btn {
+        padding: 4px 8px;
+        font-size: 9px;
+    }
+}
