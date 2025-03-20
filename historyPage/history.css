@@ -394,6 +394,59 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.pagination-btn {
+    background: #66d9d1; /* Màu xanh như ảnh */
+    color: white;
+    padding: 8px 14px;
+    margin: 3px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.pagination-btn:hover {
+    background: #50c0b3; /* Màu xanh đậm hơn khi hover */
+}
+
+.pagination-btn.active {
+    background: red; /* Màu đỏ cho nút đang được chọn */
+    color: white;
+    font-weight: bold;
+    cursor: default;
+}
+
+.page-info {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+}
+
+
 /* Responsive cho các nút */
 @media (max-width: 768px) {
     .download-btn, .delete-btn {
