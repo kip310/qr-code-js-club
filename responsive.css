@@ -4,8 +4,11 @@
     padding: 1rem;
   }   
   .accordion{
-      width: 80%;
-      margin: 10%;
+      max-width: 100%;
+      width: 90%;
+      justify-content :center;
+      margin: 5%;
+      
   }
   .header-title {
     font-size: 1.8rem;
