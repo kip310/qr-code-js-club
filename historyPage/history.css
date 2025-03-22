@@ -367,7 +367,7 @@ header {
 
 /* Nút Delete */
 .delete-btn {
-    background: rgb(240, 107, 107); /* Gradient từ đỏ nhạt sang đỏ đậm */
+    background: rgb(21, 216, 230);  
     color: white;
     padding: 8px 16px;
     border: none;
@@ -383,7 +383,7 @@ header {
 }
 
 .delete-btn:hover {
-    background: linear-gradient(135deg, #ff8787, #d62828);
+    background: rgb(255, 46, 46);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -462,7 +462,7 @@ header {
 }
 /* Nút Delete All */
 .delete-all-btn {
-    background: #e63946;
+    background: rgb(21, 216, 230);  
     color: white;
     padding: 10px 20px;
     border: none;
@@ -480,7 +480,7 @@ header {
 }
 
 .delete-all-btn:hover {
-    background: rgb(240, 170, 170);
+    background: rgb(255, 46, 46);
     transform: translateY(-2px);
 
 }
