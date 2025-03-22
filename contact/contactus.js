@@ -17,7 +17,7 @@ inputs.forEach((input) => {
   input.addEventListener("blur", blurFunc);
 });
 document.addEventListener("DOMContentLoaded", function () {
-  emailjs.init({ publicKey: "kPy0S-rBy3x5omKHQ" });
+  emailjs.init({ publicKey: "kPy0S-rBy3x5omKHQ" }); 
   // Thay YOUR_USER_ID bằng User ID của bạn
 
   document.querySelector("form").addEventListener("submit", function (event) {

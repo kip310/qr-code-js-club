@@ -341,7 +341,7 @@ header {
 }
 /* Nút Download */
 .download-btn {
-    background: linear-gradient(135deg, #62d6cb, #4CAF50); /* Gradient từ teal sang xanh lá */
+    background: rgb(21, 216, 230);  
     color: white;
     padding: 8px 16px;
     border: none;
@@ -352,7 +352,6 @@ header {
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .download-btn:hover {
@@ -368,7 +367,7 @@ header {
 
 /* Nút Delete */
 .delete-btn {
-    background: linear-gradient(135deg, #ff6b6b, #e63946); /* Gradient từ đỏ nhạt sang đỏ đậm */
+    background: rgb(240, 107, 107); /* Gradient từ đỏ nhạt sang đỏ đậm */
     color: white;
     padding: 8px 16px;
     border: none;
@@ -460,4 +459,33 @@ header {
         padding: 4px 8px;
         font-size: 9px;
     }
+}
+/* Nút Delete All */
+.delete-all-btn {
+    background: #e63946;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease;
+}
+
+.delete-all-btn:hover {
+    background: rgb(240, 170, 170);
+    transform: translateY(-2px);
+
+}
+
+.delete-all-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
