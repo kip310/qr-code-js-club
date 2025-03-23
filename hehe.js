@@ -545,7 +545,7 @@ async function saveQRToSupabase(originalURL, trackEnabled) {
                 original_url: originalURL,
                 qr_image: null,
                 created_at: new Date().toISOString(),
-                number_of_scanning: trackEnabled ? 0 : null // 0 if tracking, else null
+                number_of_scanning: trackEnabled ? 0 : -1 // 0 if tracking, else null
             })
             .select("id, qr_data") // Lấy cả id và qr_data
             .single();
