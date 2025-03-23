@@ -95,9 +95,11 @@ function renderHistoryRow(item, index) {
             <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td>
             <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
             <td>${displayedScans}</td>
-            <td>
-                <button class="download-btn" data-url="${item.qr_image}">Download</button>
-                <button class="delete-btn" data-id="${item.id}">Delete</button>
+           <td class="actions">
+                <div class="button-group">
+                    <button class="download-btn" data-url="${item.qr_image}">Download</button>
+                    <button class="delete-btn" data-id="${item.id}">Delete</button>
+                </div>
             </td>
         </tr>
     `;
