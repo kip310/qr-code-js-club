@@ -630,4 +630,3 @@ function downloadQRCode(imageUrl) {
     document.body.removeChild(downloadLink);
 }
 
-

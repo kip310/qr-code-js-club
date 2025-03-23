@@ -76,30 +76,34 @@ async function loadQRCodeHistory() {
 
 // Hàm tạo HTML cho mỗi dòng lịch sử
 function renderHistoryRow(item, index) {
-    const displayedQRData = (item.qr_data === item.original_url)
-        ? `<span style="color: gray;">No Tracking</span>`
-        : `<a href="${item.qr_data}" target="_blank">${item.qr_data}</a>`;
+    // Kiểm tra nếu QR có tracking (Dựa vào qr_image chứa "redirect.html")
+    const isTrackingEnabled = item.qr_image && item.qr_image.includes("redirect.html");
 
-    const displayedScans = (item.qr_data === item.original_url)
-        ? `<span style="color: gray;">No Tracking</span>`
-        : item.number_of_scanning;
+    const displayedQRData = isTrackingEnabled
+        ? `<a href="${item.qr_image}" target="_blank">${item.qr_image}</a>`
+        : `<span style="color: gray;">No Tracking</span>`;
+
+    // Nếu number_of_scanning < 0 => Không có tracking
+    const displayedScans = item.number_of_scanning < 0 
+        ? `<span style="color: gray;">No Tracking</span>` 
+        : item.number_of_scanning ?? 0;
 
     return `
         <tr data-id="${item.id}">
-            <td>${index + 1 + (currentPage - 1) * recordsPerPage}</td>
+            <td>${index + 1}</td>
             <td>${new Date(item.created_at).toLocaleString()}</td>
             <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td>
             <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
             <td>${displayedScans}</td>
-            <td class="actions">
-                <div class="button-group">
-                    <button class="download-btn" data-url="${item.qr_image}">Download</button>
-                    <button class="delete-btn" data-id="${item.id}">Delete</button>
-                </div>
+            <td>
+                <button class="download-btn" data-url="${item.qr_image}">Download</button>
+                <button class="delete-btn" data-id="${item.id}">Delete</button>
             </td>
         </tr>
     `;
 }
+
+
 // Gán event listener cho nút Delete & Download
 function attachEventListeners() {
     document.querySelectorAll(".delete-btn").forEach(btn =>
@@ -285,5 +289,4 @@ function updatePage() {
     renderTable(); // Update table content
     renderPaginationControls(); // Re-render pagination buttons
 }
-
 
