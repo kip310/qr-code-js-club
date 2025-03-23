@@ -4,42 +4,10 @@ import { supabase } from "./supabaseClient.js";
 console.log("history.js loaded");
 
 // Save QR Code to Supabase History (unchanged, assumed working)
-export async function saveQRCodeToHistory(dataUrl, originalURL, trackEnabled) {
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) {
-        console.log("User not logged in, skipping history save.");
-        return false;
-    }
-
-    // If tracking is enabled, generate tracking URL; otherwise, use the original
-    const qrData = trackEnabled 
-    //`https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(userInputURL)}`;
-        ? `https://qr-code-js-club.vercel.app/redirect.html?qr_data=${encodeURIComponent(originalURL)}`
-        : originalURL;
-
-    // Save to Supabase
-    const { error } = await supabase.from("qr_history").insert({
-        user_id: userData.user.id,
-        qr_data: qrData,  // Save either tracking URL or original URL
-        original_url: originalURL,
-        qr_image: dataUrl,
-        created_at: new Date().toISOString(),
-        number_of_scanning: 0
-    });
-
-    if (error) {
-        console.error("Error saving QR code to history:", error);
-        return false;
-    }
-
-    console.log(`QR code saved successfully (${trackEnabled ? "with tracking" : "without tracking"})`);
-    return true;
-}
-
 let currentPage = 1;
-const recordsPerPage = 5; // Số bản ghi trên mỗi trang
+const recordsPerPage = 5; // Number of records per page
 let totalPages = 1;
-let historyData = [];
+let totalRecords = 0; // To store the total number of records
 
 async function loadQRCodeHistory() {
     console.log("Loading QR Code history...");
@@ -52,38 +20,75 @@ async function loadQRCodeHistory() {
         return;
     }
 
+    // Fetch the total number of records to calculate total pages
+    const { count, error: countError } = await supabase
+        .from("qr_history")
+        .select("*", { count: "exact", head: true }) // Only fetch the count, not the data
+        .eq("user_id", userData.user.id);
+
+    if (countError) {
+        console.error("Error fetching total record count:", countError);
+        historyTableBody.innerHTML = "<tr><td colspan='6'>Error loading history. Please try again later.</td></tr>";
+        return;
+    }
+
+    totalRecords = count; // Store the total number of records
+    totalPages = Math.ceil(totalRecords / recordsPerPage); // Calculate total pages
+
+    if (totalRecords === 0) {
+        historyTableBody.innerHTML = "<tr><td colspan='6'>No QR codes in your history yet.</td></tr>";
+        return;
+    }
+
+    // Calculate startIndex and stopIndex for the current page
+    const startIndex = (currentPage - 1) * recordsPerPage;
+    const stopIndex = startIndex + recordsPerPage - 1;
+
+    // Fetch only the records for the current page
     const { data, error } = await supabase
         .from("qr_history")
         .select("*")
         .eq("user_id", userData.user.id)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .range(startIndex, stopIndex); // Fetch only the required range of records
 
     if (error) {
         historyTableBody.innerHTML = "<tr><td colspan='6'>Error loading history. Please try again later.</td></tr>";
         return;
     }
 
-    if (data.length === 0) {
+    // Render the table with the fetched data
+    renderTable(data);
+}
+
+function renderTable(paginatedData) {
+    const historyTableBody = document.querySelector("#history-table-body");
+    historyTableBody.innerHTML = "";
+
+    if (paginatedData.length === 0) {
         historyTableBody.innerHTML = "<tr><td colspan='6'>No QR codes in your history yet.</td></tr>";
         return;
     }
 
-    historyData = data; // Lưu dữ liệu để phân trang
-    totalPages = Math.ceil(historyData.length / recordsPerPage);
-    currentPage = 1; // Reset về trang đầu tiên
-    renderTable();
+    // Calculate the starting index for display purposes (for row numbering)
+    const startIndex = (currentPage - 1) * recordsPerPage;
+    historyTableBody.innerHTML = paginatedData
+        .map((item, index) => renderHistoryRow(item, startIndex + index))
+        .join("");
+
+    attachEventListeners(); // Re-attach event listeners
+    renderPaginationControls(); // Render pagination controls
 }
 
-// Hàm tạo HTML cho mỗi dòng lịch sử
 function renderHistoryRow(item, index) {
-    // Kiểm tra nếu QR có tracking (Dựa vào qr_image chứa "redirect.html")
+    // Check if QR has tracking (based on qr_image containing "redirect.html")
     const isTrackingEnabled = item.qr_image && item.qr_image.includes("redirect.html");
 
     const displayedQRData = isTrackingEnabled
         ? `<a href="${item.qr_image}" target="_blank">${item.qr_image}</a>`
         : `<span style="color: gray;">No Tracking</span>`;
 
-    // Nếu number_of_scanning < 0 => Không có tracking
+    // If number_of_scanning < 0, it means no tracking
     const displayedScans = item.number_of_scanning < 0 
         ? `<span style="color: gray;">No Tracking</span>` 
         : item.number_of_scanning ?? 0;
@@ -95,7 +100,7 @@ function renderHistoryRow(item, index) {
             <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td>
             <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
             <td>${displayedScans}</td>
-           <td class="actions">
+            <td class="actions">
                 <div class="button-group">
                     <button class="download-btn" data-url="${item.qr_image}">Download</button>
                     <button class="delete-btn" data-id="${item.id}">Delete</button>
@@ -105,8 +110,6 @@ function renderHistoryRow(item, index) {
     `;
 }
 
-
-// Gán event listener cho nút Delete & Download
 function attachEventListeners() {
     document.querySelectorAll(".delete-btn").forEach(btn =>
         btn.addEventListener("click", async (e) => {
@@ -123,13 +126,12 @@ function attachEventListeners() {
     );
 }
 
-// Xóa QR Code khỏi Supabase và cập nhật giao diện
 async function deleteQRCode(qrId) {
-    if (!confirm("Bạn có chắc muốn xóa QR Code này?")) return;
+    if (!confirm("Are you sure you want to delete this QR Code?")) return;
 
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError || !userData.user) {
-        alert("Bạn cần đăng nhập để thực hiện thao tác này!");
+        alert("You need to be logged in to perform this action!");
         return;
     }
 
@@ -139,16 +141,15 @@ async function deleteQRCode(qrId) {
         .match({ id: qrId, user_id: userData.user.id });
 
     if (error) {
-        console.error("Lỗi khi xóa QR Code:", error);
-        alert("Xóa QR Code thất bại! Vui lòng thử lại.");
+        console.error("Error deleting QR Code:", error);
+        alert("Failed to delete QR Code! Please try again.");
         return;
     }
 
-    alert("QR Code đã được xóa thành công!");
-    document.querySelector(`tr[data-id="${qrId}"]`)?.remove();
+    alert("QR Code deleted successfully!");
+    loadQRCodeHistory(); // Reload the data after deletion
 }
 
-// Tải ảnh QR xuống
 function downloadQRCode(imageUrl) {
     const a = document.createElement("a");
     a.href = imageUrl;
@@ -158,61 +159,37 @@ function downloadQRCode(imageUrl) {
     document.body.removeChild(a);
 }
 
-// Load lịch sử QR khi trang tải xong
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded, calling loadQRCodeHistory");
-    loadQRCodeHistory();
-});
-
-// Hàm xóa tất cả QR Code của user
 async function deleteAllQRCode() {
-    if (!confirm("Bạn có chắc chắn muốn xóa tất cả QR Code? Hành động này không thể hoàn tác!")) return;
+    if (!confirm("Are you sure you want to delete all QR Codes? This action cannot be undone!")) return;
 
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError || !userData.user) {
-        alert("Bạn cần đăng nhập để thực hiện thao tác này!");
+        alert("You need to be logged in to perform this action!");
         return;
     }
 
-    // Xóa tất cả bản ghi của user hiện tại
+    // Delete all records for the current user
     const { error } = await supabase
         .from("qr_history")
         .delete()
         .eq("user_id", userData.user.id);
 
     if (error) {
-        console.error("Lỗi khi xóa tất cả QR Code:", error);
-        alert("Xóa tất cả QR Code thất bại! Vui lòng thử lại.");
+        console.error("Error deleting all QR Codes:", error);
+        alert("Failed to delete all QR Codes! Please try again.");
         return;
     }
 
-    alert("Tất cả QR Code đã được xóa thành công!");
+    alert("All QR Codes deleted successfully!");
+    loadQRCodeHistory(); // Reload the data after deletion
+}
 
-    // Cập nhật lại lịch sử sau khi xóa
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded, calling loadQRCodeHistory");
     loadQRCodeHistory();
-}
+});
 
-// Gán sự kiện cho nút "Delete All"
 document.getElementById("delete-all-btn").addEventListener("click", deleteAllQRCode);
-
-function renderTable() {
-    const historyTableBody = document.querySelector("#history-table-body");
-    historyTableBody.innerHTML = "";
-
-    const start = (currentPage - 1) * recordsPerPage;
-    const end = start + recordsPerPage;
-    const paginatedData = historyData.slice(start, end);
-
-    if (paginatedData.length === 0) {
-        historyTableBody.innerHTML = "<tr><td colspan='6'>No QR codes in your history yet.</td></tr>";
-        return;
-    }
-
-    historyTableBody.innerHTML = paginatedData.map(renderHistoryRow).join("");
-
-    attachEventListeners(); // Gán lại sự kiện
-    renderPaginationControls(); // Hiển thị phân trang
-}
 
 function renderPaginationControls() {
     const paginationContainer = document.querySelector("#pagination-container");
@@ -286,9 +263,6 @@ function renderPaginationControls() {
     }
 }
 
-// Helper function to update page smoothly
 function updatePage() {
-    renderTable(); // Update table content
-    renderPaginationControls(); // Re-render pagination buttons
+    loadQRCodeHistory(); // Reload data from the server for the current page
 }
-
