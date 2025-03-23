@@ -11,62 +11,29 @@
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const qrData = decodeURIComponent(urlParams.get("qr_data"));
-            const qrId = urlParams.get("id_qr"); // Lấy id_qr từ query parameter
             const loadingElement = document.getElementById("loading");
             const messageElement = document.getElementById("message");
 
-            // Kiểm tra id_qr
-            if (!qrId) {
-                console.error("No id_qr found in URL. Redirect failed.");
-                messageElement.textContent = "Error: No QR ID found.";
-                loadingElement.style.display = "none";
-                return;
-            }
-
-            // Kiểm tra qr_data
             if (!qrData) {
-                console.error("No qr_data found in URL. Redirect failed.");
+                console.error("No qr_data found. Redirect failed.");
                 messageElement.textContent = "Error: No QR data found.";
-                loadingElement.style.display = "none";
+                loadingElement.style.display = "none"; // Hide loading
                 return;
             }
 
-            console.log("Tracking QR scan for:", qrData, "with qrId:", qrId);
+            console.log("Tracking QR scan for:", qrData);
 
-            // Insert into scan table to trigger the increment
-            const { data: scanData, error: scanError } = await supabase
-                .from("scan")
-                .insert({
-                    qr_id: qrId,
-                    user_id: null, // Có thể lấy user_id nếu cần
-                    device: navigator.userAgent,
-                    scanned_at: new Date().toISOString(),
-                })
-                .select();
-
-            if (scanError) {
-                console.error("Error inserting into scan:", scanError);
-                messageElement.textContent = "Error: Failed to track QR scan.";
-                loadingElement.style.display = "none";
-                return;
-            }
-
-            console.log("Successfully inserted scan record:", scanData);
-
-            // Xử lý qr_data để đảm bảo là URL hợp lệ
-            let finalQrData = qrData;
-            try {
-                // Kiểm tra và thêm giao thức nếu cần
-                if (!finalQrData.startsWith('http://') && !finalQrData.startsWith('https://')) {
-                    finalQrData = 'https://' + finalQrData;
-                }
-                // Kiểm tra xem finalQrData có phải là URL hợp lệ không
-                new URL(finalQrData); // Nếu không hợp lệ, sẽ throw lỗi
-            } catch (e) {
-                console.error("Invalid QR data URL:", finalQrData, e);
-                messageElement.textContent = "Error: Invalid QR data URL.";
-                loadingElement.style.display = "none";
-                return;
+            // Query Supabase for existing QR data
+            const { data, error } = await supabase
+                .from("qr_history")
+                .select("*")
+                .eq("original_url", qrData);
+        
+            if (data && data.length > 0) {
+                const newCount = (data[0].number_of_scanning ?? 0) + 1;
+                await supabase.from("qr_history")
+                    .update({ number_of_scanning: newCount })
+                    .eq("id", data[0].id);
             }
 
             // Update message before redirecting
@@ -74,9 +41,9 @@
 
             // Hide loading before redirect
             setTimeout(() => {
-                console.log("Redirecting to:", finalQrData);
+                console.log("Redirecting to:", qrData);
                 loadingElement.style.display = "none";
-                window.location.href = finalQrData;
+                window.location.href = qrData;
             }, 1500);
         });
     </script>
