@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageSizeInput.value = op.imageOptions.imageSize;
         imageSizeInput.addEventListener("input", function() {
             let val = parseFloat(this.value);
-            if (!isNaN(val) && val >= 0 && val <= 1) {
+            if (!isNaN(val) && val >= 0.1 && val <= 1) {
                 op.imageOptions.imageSize = val;
                 render();
                 saveState(op, textData, toggleScan);
@@ -422,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageMarginInput.value = op.imageOptions.margin;
         imageMarginInput.addEventListener("input", function() {
             let val = parseInt(this.value, 10);
-            if (!isNaN(val) && val >= 0) {
+            if (!isNaN(val) && val >= 0 && val <= 20) {
                 op.imageOptions.margin = val;
                 render();
                 saveState(op, textData, toggleScan);
