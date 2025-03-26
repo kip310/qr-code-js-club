@@ -10,7 +10,6 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const qrData = decodeURIComponent(urlParams.get("qr_data"));
             const qrId = urlParams.get("id_qr"); // Lấy id_qr từ query parameter
             const loadingElement = document.getElementById("loading");
             const messageElement = document.getElementById("message");
@@ -23,15 +22,7 @@
                 return;
             }
 
-            // Kiểm tra qr_data
-            if (!qrData) {
-                console.error("No qr_data found in URL. Redirect failed.");
-                messageElement.textContent = "Error: No QR data found.";
-                loadingElement.style.display = "none";
-                return;
-            }
-
-            console.log("Tracking QR scan for:", qrData, "with qrId:", qrId);
+            console.log("Tracking QR scan for qrId:", qrId);
 
             // Insert into scan table to trigger the increment
             const { data: scanData, error: scanError } = await supabase
@@ -41,7 +32,7 @@
                     user_id: null, // Có thể lấy user_id nếu cần
                     device: navigator.userAgent,
                     scanned_at: new Date().toISOString(),
-                })
+                });
 
             if (scanError) {
                 console.error("Error inserting into scan:", scanError);
@@ -51,6 +42,32 @@
             }
 
             console.log("Successfully inserted scan record:", scanData);
+
+            // Fetch qr_data from qr_history table using qrId
+            const { data: qrHistoryData, error: qrHistoryError } = await supabase
+                .from("qr_history")
+                .select("qr_data")
+                .eq("id", qrId)
+                .single(); // Use .single() since we expect one record
+
+            if (qrHistoryError || !qrHistoryData) {
+                console.error("Error fetching qr_data from qr_history:", qrHistoryError);
+                messageElement.textContent = "Error: Failed to fetch QR data.";
+                loadingElement.style.display = "none";
+                return;
+            }
+
+            const qrData = qrHistoryData.qr_data;
+
+            // Kiểm tra qr_data
+            if (!qrData) {
+                console.error("No qr_data found in qr_history for qrId:", qrId);
+                messageElement.textContent = "Error: No QR data found.";
+                loadingElement.style.display = "none";
+                return;
+            }
+
+            console.log("Fetched qr_data:", qrData);
 
             // Xử lý qr_data để đảm bảo là URL hợp lệ
             let finalQrData = qrData;

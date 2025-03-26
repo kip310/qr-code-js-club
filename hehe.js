@@ -575,7 +575,7 @@ async function saveQRToSupabase(originalURL, trackEnabled) {
 
         if (trackEnabled) {
             const encodedQrData = encodeURIComponent(qrData);
-            finalURL = `https://qr-code-js-club.vercel.app/redirect.html?id_qr=${qrId}&qr_data=${encodedQrData}`;
+            finalURL = `https://qr-code-js-club.vercel.app/redirect.html?id_qr=${qrId}`;
         }
 
         renderQRCode(finalURL);
