@@ -72,7 +72,7 @@
   .display
   {
     width: 30%;
-    margin: 10%;
+    margin: 10% 15% 10% 5%;
 
   }
 }
@@ -91,4 +91,45 @@
 }
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Đảm bảo body cao ít nhất bằng chiều cao viewport */
+  line-height: 1; /* Giữ nguyên line-height */
+}
+
+main.restricted-content {
+  flex: 1 0 auto; 
+  display: flex;
+  margin-top: 70px;
+  padding: 25px; 
+}
+
+footer {
+  flex-shrink: 0; /* Ngăn footer bị co lại */
+  width: 100%;
+  background-color: #B5E3E0;
+  padding: 5px 0;
+  text-align: center;
+  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
+}
+
+/* Giới hạn kích thước QR code trên điện thoại */
+@media (max-width: 600px) {
+  .qr-container {
+    max-width: 300px; /* Giới hạn chiều rộng tối đa */
+    }
+
+  /* Đảm bảo canvas bên trong không vượt quá kích thước container */
+  #canvas {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}
 

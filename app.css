@@ -847,7 +847,7 @@ header {
 }
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #d3edef;
+  background-color: #c4e5e7;
   color: #444;
   padding: 20px;
 }
@@ -885,6 +885,9 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  top: 10px;
+  display: flex;
+  margin-bottom: 20px; /* Thêm khoảng cách để tránh chồng lấn với footer */
 }
 
 /* Nút luôn nằm dưới QR code */

@@ -93,14 +93,28 @@ let op = {
 let qrCode = null;
 let canvasEl = null;
 
+// Hàm kiểm tra nếu là thiết bị di động (dựa trên chiều rộng màn hình)
+function isMobileDevice() {
+    return window.innerWidth <= 600; // Dưới 600px được coi là điện thoại
+}
+
 function render() {
     if (!qrCode) {
         console.error("qrCode is not initialized!");
         return;
     }
     console.log("Rendering with op:", op);
-    qrCode.update(op);
+
+    // Tạo một bản sao của op để điều chỉnh kích thước hiển thị trên điện thoại
+    let renderOp = { ...op };
+    if (isMobileDevice()) {
+        renderOp.width = 300; // Cố định kích thước hiển thị là 300px trên điện thoại
+        renderOp.height = 300;
+    }
+
+    qrCode.update(renderOp);
     if (canvasEl) {
+        // Hiển thị kích thước thực tế của op (không phải kích thước hiển thị)
         canvasEl.nextElementSibling.innerHTML = `${op.width}px x ${op.height}px`;
     }
 }
@@ -318,6 +332,11 @@ document.addEventListener("DOMContentLoaded", function () {
             render();
             saveState(op, textData, toggleScan);
         });
+    });
+
+    // Thêm sự kiện resize để cập nhật kích thước hiển thị khi thay đổi kích thước màn hình
+    window.addEventListener("resize", function () {
+        render(); // Gọi render để cập nhật kích thước hiển thị
     });
 
     // Xử lý toggle màu (single/gradient)
