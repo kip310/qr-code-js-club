@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
-    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script type="module">
         import { supabase } from "./supabaseClient.js";
 
         document.addEventListener("DOMContentLoaded", async () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const qrId = urlParams.get("id_qr"); // Lấy id_qr từ query parameter
+            const qrId = urlParams.get("id_qr");
             const loadingElement = document.getElementById("loading");
             const messageElement = document.getElementById("message");
 
-            // Kiểm tra id_qr
             if (!qrId) {
                 console.error("No id_qr found in URL. Redirect failed.");
                 messageElement.textContent = "Error: No QR ID found.";
@@ -22,42 +21,49 @@
                 return;
             }
 
-            console.log("Tracking QR scan for qrId:", qrId);
+            console.log("Processing QR with qrId:", qrId);
 
-            // Insert into scan table to trigger the increment
-            const { data: scanData, error: scanError } = await supabase
-                .from("scan")
-                .insert({
-                    qr_id: qrId,
-                    user_id: null, // Có thể lấy user_id nếu cần
-                    device: navigator.userAgent,
-                    scanned_at: new Date().toISOString(),
-                });
-
-            if (scanError) {
-                console.error("Error inserting into scan:", scanError);
-                messageElement.textContent = "Error: Failed to track QR scan.";
-                loadingElement.style.display = "none";
-                return;
-            }
-
-            console.log("Successfully inserted scan record:", scanData);
-
-            // Fetch qr_data from qr_history table using qrId
-            const { data: qrHistoryData, error: qrHistoryError } = await supabase
+            // Kiểm tra number_of_scanning từ qr_history trước
+            const { data: qrHistoryCheck, error: qrCheckError } = await supabase
                 .from("qr_history")
-                .select("qr_data")
+                .select("qr_data, number_of_scanning")
                 .eq("id", qrId)
-                .single(); // Use .single() since we expect one record
+                .single();
 
-            if (qrHistoryError || !qrHistoryData) {
-                console.error("Error fetching qr_data from qr_history:", qrHistoryError);
-                messageElement.textContent = "Error: Failed to fetch QR data.";
+            if (qrCheckError || !qrHistoryCheck) {
+                console.error("Error checking qr_history:", qrCheckError);
+                messageElement.textContent = "Error: Failed to verify QR data.";
                 loadingElement.style.display = "none";
                 return;
             }
 
-            const qrData = qrHistoryData.qr_data;
+            const numberOfScanning = qrHistoryCheck.number_of_scanning;
+            const qrData = qrHistoryCheck.qr_data;
+
+            // Kiểm tra nếu number_of_scanning là số không âm (>= 0) thì mới insert scan
+            if (numberOfScanning >= 0) {
+                console.log("Tracking enabled, inserting scan record for qrId:", qrId);
+                
+                const { data: scanData, error: scanError } = await supabase
+                    .from("scan")
+                    .insert({
+                        qr_id: qrId,
+                        user_id: null,
+                        device: navigator.userAgent,
+                        scanned_at: new Date().toISOString(),
+                    });
+
+                if (scanError) {
+                    console.error("Error inserting into scan:", scanError);
+                    messageElement.textContent = "Error: Failed to track QR scan.";
+                    loadingElement.style.display = "none";
+                    return;
+                }
+
+                console.log("Successfully inserted scan record:", scanData);
+            } else {
+                console.log("Tracking disabled (number_of_scanning < 0), skipping scan insert");
+            }
 
             // Kiểm tra qr_data
             if (!qrData) {
@@ -72,12 +78,10 @@
             // Xử lý qr_data để đảm bảo là URL hợp lệ
             let finalQrData = qrData;
             try {
-                // Kiểm tra và thêm giao thức nếu cần
                 if (!finalQrData.startsWith('http://') && !finalQrData.startsWith('https://')) {
                     finalQrData = 'https://' + finalQrData;
                 }
-                // Kiểm tra xem finalQrData có phải là URL hợp lệ không
-                new URL(finalQrData); // Nếu không hợp lệ, sẽ throw lỗi
+                new URL(finalQrData);
             } catch (e) {
                 console.error("Invalid QR data URL:", finalQrData, e);
                 messageElement.textContent = "Error: Invalid QR data URL.";
@@ -85,10 +89,8 @@
                 return;
             }
 
-            // Update message before redirecting
             messageElement.textContent = "Redirecting now...";
 
-            // Hide loading before redirect
             setTimeout(() => {
                 console.log("Redirecting to:", finalQrData);
                 loadingElement.style.display = "none";
@@ -100,7 +102,6 @@
 <body class="flex flex-col justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900">
     <h2 id="message" class="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-4">Processing your request...</h2>
 
-    <!-- Loading Effect -->
     <div id="loading" class="flex gap-4 p-4 flex-wrap justify-center">
         <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/173880/loading-arrows.svg" alt="Loading icon">
         <img class="w-20 h-20 animate-spin" src="https://www.svgrepo.com/show/491270/loading-spinner.svg" alt="Loading icon">

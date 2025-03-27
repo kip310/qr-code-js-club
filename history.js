@@ -97,11 +97,12 @@ function renderHistoryRow(item, index) {
         <tr data-id="${item.id}">
             <td>${index + 1}</td>
             <td>${new Date(item.created_at).toLocaleString()}</td>
-            <td><a href="${item.original_url}" target="_blank">${item.original_url}</a></td>
+            <td><a href="${item.qr_data}" target="_blank">${item.qr_data}</a></td>
             <td><img src="${item.qr_image}" alt="QR Code" class="qr-image" width="50"></td>
             <td>${displayedScans}</td>
             <td class="actions">
                 <div class="button-group">
+                    <button class="edit-btn" data-id="${item.id}" data-url="${item.qr_data}">Edit</button>
                     <button class="download-btn" data-url="${item.qr_image}">Download</button>
                     <button class="delete-btn" data-id="${item.id}">Delete</button>
                 </div>
@@ -111,6 +112,14 @@ function renderHistoryRow(item, index) {
 }
 
 function attachEventListeners() {
+    document.querySelectorAll(".edit-btn").forEach(btn =>
+        btn.addEventListener("click", async (e) => {
+            const qrId = e.target.dataset.id;
+            const currentUrl = e.target.dataset.url;
+            await editQRCode(qrId, currentUrl);
+        })
+    );
+
     document.querySelectorAll(".delete-btn").forEach(btn =>
         btn.addEventListener("click", async (e) => {
             const qrId = e.target.dataset.id;
@@ -124,6 +133,52 @@ function attachEventListeners() {
             downloadQRCode(imageUrl);
         })
     );
+}
+async function editQRCode(qrId, currentUrl) {
+    const newUrl = prompt("Enter new URL for this QR Code (must include http:// or https://):", currentUrl);
+    
+    // Kiểm tra nếu người dùng bấm Cancel hoặc để trống
+    if (!newUrl || newUrl.trim() === "") {
+        alert("Please enter a URL!");
+        return;
+    }
+
+    const finalUrl = newUrl.trim();
+
+    // Kiểm tra xem URL có hợp lệ và đã bao gồm giao thức chưa
+    try {
+        // URL phải bắt đầu bằng http:// hoặc https://
+        if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+            alert("Invalid URL! URL must start with http:// or https:// (e.g., https://example.com)");
+            return;
+        }
+        new URL(finalUrl); // Kiểm tra tính hợp lệ của URL
+    } catch (e) {
+        alert("Invalid URL! Please enter a valid URL (e.g., https://example.com)");
+        return;
+    }
+
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    if (userError || !userData.user) {
+        alert("You need to be logged in to perform this action!");
+        return;
+    }
+
+    // Chỉ cập nhật qr_data
+    const { error } = await supabase
+        .from("qr_history")
+        .update({ qr_data: finalUrl })
+        .eq("id", qrId)
+        .eq("user_id", userData.user.id);
+
+    if (error) {
+        console.error("Error updating QR Code:", error);
+        alert("Failed to update QR Code! Please try again.");
+        return;
+    }
+
+    alert("QR Code updated successfully!");
+    window.location.reload();
 }
 
 async function deleteQRCode(qrId) {
@@ -203,6 +258,18 @@ function renderPaginationControls() {
     pageInfo.className = "pagination-info";
     paginationContainer.appendChild(pageInfo);
 
+    // Create "First Page" button
+    if (currentPage > 1) {
+        const firstPageBtn = document.createElement("button");
+        firstPageBtn.textContent = "First Page";
+        firstPageBtn.className = "pagination-btn";
+        firstPageBtn.addEventListener("click", () => {
+            currentPage = 1;
+            updatePage();
+        });
+        paginationContainer.appendChild(firstPageBtn);
+    }
+
     // Create "Previous" button
     if (currentPage > 1) {
         const prevBtn = document.createElement("button");
@@ -262,7 +329,6 @@ function renderPaginationControls() {
         paginationContainer.appendChild(lastPageBtn);
     }
 }
-
 function updatePage() {
     loadQRCodeHistory(); // Reload data from the server for the current page
 }

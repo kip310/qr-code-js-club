@@ -2,6 +2,7 @@ import { longVariable } from "./variable.js";
 import { supabase } from "./supabaseClient.js";
 import { saveState, loadState, updateUIFromState, clearState } from "./stateManager.js";
 
+
 // Xử lý modal
 document.body.addEventListener("click", function(event){
     console.log(event.target);
@@ -531,21 +532,33 @@ toggleScan.addEventListener("change", () => {
 const fileInput = document.querySelector("#form-logo");
 
 fileInput.addEventListener("change", e => {
-    let file = e.target.files[0];
+    const file = e.target.files[0];
     if (!file) return;
-    if (!file.type.startsWith("image/")) {
-        alert("Only image files are accepted!");
-        fileInput.value = "";
+
+    console.log("File selected:", file.name, file.type); // Debug
+
+    if (typeof window.FileDetector === 'undefined') {
+        console.error("FileDetector is not defined! Please ensure ValidateFile.js is loaded.");
+        alert("Error: File validation module is not loaded.");
         return;
     }
 
-    let reader = new FileReader();
-    reader.onload = () => {
-        op.image = reader.result;
-        render();
-        saveState(op, textData, toggleScan);
-    };
-    reader.readAsDataURL(file);
+    window.FileDetector.verifyFileType(file, ['png', 'jpeg', 'webp'], (isImage) => {
+        console.log("FileDetector result:", isImage); // Debug
+        if (!isImage) {
+            alert("Only image files (PNG, JPEG, WEBP) are accepted!");
+            fileInput.value = "";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            op.image = reader.result;
+            render();
+            saveState(op, textData, toggleScan);
+        };
+        reader.readAsDataURL(file);
+    });
 });
 
 const cancelButton = document.querySelector("#button-cancel");
@@ -568,8 +581,9 @@ async function saveQRToSupabase(originalURL, trackEnabled) {
         let finalQRImage;
         const canvas = document.getElementById("canvas");
         let qrId = null;
-        let finalURL = originalURL;
+        let finalURL;
 
+        // Insert record với number_of_scanning dựa trên trackEnabled
         const { data: newQR, error: insertError } = await supabase
             .from("qr_history")
             .insert({
@@ -592,10 +606,9 @@ async function saveQRToSupabase(originalURL, trackEnabled) {
         const qrData = newQR.qr_data;
         console.log(`QR record created! ID: ${qrId}, qr_data: ${qrData}`);
 
-        if (trackEnabled) {
-            const encodedQrData = encodeURIComponent(qrData);
-            finalURL = `https://qr-code-js-club.vercel.app/redirect.html?id_qr=${qrId}`;
-        }
+        // Luôn tạo URL theo định dạng tracking bất kể trackEnabled
+        const encodedQrData = encodeURIComponent(qrData);
+        finalURL = `https://qr-code-js-club.vercel.app/redirect.html?id_qr=${qrId}`;
 
         renderQRCode(finalURL);
         await new Promise(resolve => setTimeout(resolve, 500));
