@@ -136,3 +136,170 @@
         font-size: 11px;
     }
 }
+/* historyresponsive.css */
+
+/* Button group để giữ các nút trên cùng một hàng */
+.button-group {
+    display: flex;
+    flex-wrap: nowrap; /* Ngăn nút xuống dòng */
+    gap: 8px; /* Khoảng cách giữa các nút */
+    justify-content: flex-start; /* Căn trái các nút */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+/* Nút Edit */
+.edit-btn {
+    background: rgb(21, 216, 230);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Ngăn chữ xuống dòng */
+}
+
+.edit-btn:hover {
+    background: linear-gradient(135deg, #55c2b8, #45a049);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Nút Download */
+.download-btn {
+    background: rgb(21, 216, 230);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Ngăn chữ xuống dòng */
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #55c2b8, #45a049);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Nút Delete */
+.delete-btn {
+    background: rgb(21, 216, 230);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    white-space: nowrap; /* Ngăn chữ xuống dòng */
+}
+
+.delete-btn:hover {
+    background: rgb(255, 46, 46);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.delete-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design cho màn hình dưới 768px */
+@media (max-width: 768px) {
+    .history-table {
+        width: 100%;
+        font-size: 12px;
+    }
+
+    .history-table th,
+    .history-table td {
+        padding: 8px;
+    }
+
+    .qr-image {
+        max-width: 60px;
+    }
+
+    .button-group {
+        gap: 6px; /* Giảm khoảng cách giữa các nút */
+    }
+
+    .edit-btn,
+    .download-btn,
+    .delete-btn {
+        padding: 6px 12px; /* Giảm padding */
+        font-size: 10px; /* Giảm kích thước chữ */
+    }
+}
+
+/* Responsive Design cho màn hình dưới 480px */
+@media (max-width: 480px) {
+    .history-table {
+        display: block;
+        overflow-x: auto; /* Cho phép cuộn ngang nếu cần */
+    }
+
+    .history-table th,
+    .history-table td {
+        min-width: 100px;
+    }
+
+    .history-table td.actions {
+        min-width: 150px; /* Đảm bảo đủ không gian cho cả ba nút */
+    }
+
+    .qr-image {
+        max-width: 40px;
+    }
+
+    .button-group {
+        gap: 4px; /* Giảm khoảng cách hơn nữa */
+    }
+
+    .edit-btn,
+    .download-btn,
+    .delete-btn {
+        padding: 4px 8px; /* Giảm padding hơn nữa */
+        font-size: 9px; /* Giảm kích thước chữ hơn nữa */
+    }
+}
+
+/* Responsive cho nút Delete All */
+@media (max-width: 768px) {
+    .delete-all-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .delete-all-btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+}
