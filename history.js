@@ -3,11 +3,102 @@ import { supabase } from "./supabaseClient.js";
 
 console.log("history.js loaded");
 
-// Save QR Code to Supabase History (unchanged, assumed working)
 let currentPage = 1;
-const recordsPerPage = 5; // Number of records per page
+const recordsPerPage = 5;
 let totalPages = 1;
-let totalRecords = 0; // To store the total number of records
+let totalRecords = 0;
+
+// Hàm hiển thị modal thông báo
+function showNotificationModal(message, isError = false) {
+    const modalContainer = document.getElementById('notification-modal');
+    if (!modalContainer) return;
+
+    modalContainer.innerHTML = `
+        <div class="relative p-4 w-full max-w-md">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-close-modal>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 text-center">
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">${isError ? 'Error' : 'Notification'}</h3>
+                    <p class="mb-5 text-gray-800 dark:text-gray-300">${message}</p>
+                    <button type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" data-close-modal>Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modalContainer.classList.remove('hidden');
+
+    const closeButtons = modalContainer.querySelectorAll('[data-close-modal]');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalContainer.classList.add('hidden');
+        });
+    });
+}
+
+// Hàm hiển thị modal cho Delete và Delete All
+function showDeleteModal(title, confirmCallback) {
+    const modal = document.getElementById("popup-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const confirmBtn = document.getElementById("modal-confirm-btn");
+    const cancelBtn = document.getElementById("modal-cancel-btn");
+    const closeBtn = document.querySelector('[data-modal-hide="popup-modal"]');
+
+    if (!modal || !modalTitle || !confirmBtn || !cancelBtn || !closeBtn) {
+        console.error("Delete modal elements not found!");
+        return;
+    }
+
+    modalTitle.textContent = title;
+    modal.classList.remove("hidden");
+
+    confirmBtn.onclick = () => {
+        confirmCallback();
+        modal.classList.add("hidden");
+    };
+
+    const hideModal = () => modal.classList.add("hidden");
+    cancelBtn.onclick = hideModal;
+    closeBtn.onclick = hideModal;
+}
+
+// Hàm hiển thị modal cho Edit
+function showEditModal(title, currentUrl, confirmCallback) {
+    const modal = document.getElementById("authentication-modal");
+    const modalTitle = document.getElementById("edit-modal-title");
+    const urlInput = document.getElementById("edit-url");
+    const confirmBtn = document.getElementById("edit-modal-confirm-btn");
+    const cancelBtn = document.getElementById("edit-modal-cancel-btn");
+    const closeBtn = document.querySelector('[data-modal-hide="authentication-modal"]');
+    const form = document.getElementById("edit-form");
+
+    if (!modal || !modalTitle || !urlInput || !confirmBtn || !cancelBtn || !closeBtn || !form) {
+        console.error("Edit modal elements not found!");
+        return;
+    }
+
+    modalTitle.textContent = title;
+    urlInput.value = currentUrl;
+    modal.classList.remove("hidden");
+
+    // Ngăn hành vi submit mặc định của form khi nhấn Enter
+    form.addEventListener('submit', (e) => e.preventDefault());
+
+    confirmBtn.onclick = () => {
+        const newUrl = urlInput.value.trim();
+        confirmCallback(newUrl);
+        modal.classList.add("hidden");
+    };
+
+    const hideModal = () => modal.classList.add("hidden");
+    cancelBtn.onclick = hideModal;
+    closeBtn.onclick = hideModal;
+}
 
 async function loadQRCodeHistory() {
     console.log("Loading QR Code history...");
@@ -20,10 +111,9 @@ async function loadQRCodeHistory() {
         return;
     }
 
-    // Fetch the total number of records to calculate total pages
     const { count, error: countError } = await supabase
         .from("qr_history")
-        .select("*", { count: "exact", head: true }) // Only fetch the count, not the data
+        .select("*", { count: "exact", head: true })
         .eq("user_id", userData.user.id);
 
     if (countError) {
@@ -32,32 +122,30 @@ async function loadQRCodeHistory() {
         return;
     }
 
-    totalRecords = count; // Store the total number of records
-    totalPages = Math.ceil(totalRecords / recordsPerPage); // Calculate total pages
+    totalRecords = count;
+    totalPages = Math.ceil(totalRecords / recordsPerPage);
 
     if (totalRecords === 0) {
         historyTableBody.innerHTML = "<tr><td colspan='6'>No QR codes in your history yet.</td></tr>";
         return;
     }
 
-    // Calculate startIndex and stopIndex for the current page
     const startIndex = (currentPage - 1) * recordsPerPage;
     const stopIndex = startIndex + recordsPerPage - 1;
 
-    // Fetch only the records for the current page
     const { data, error } = await supabase
         .from("qr_history")
         .select("*")
         .eq("user_id", userData.user.id)
         .order("created_at", { ascending: false })
-        .range(startIndex, stopIndex); // Fetch only the required range of records
+        .range(startIndex, stopIndex);
 
     if (error) {
+        console.error("Error loading history:", error);
         historyTableBody.innerHTML = "<tr><td colspan='6'>Error loading history. Please try again later.</td></tr>";
         return;
     }
 
-    // Render the table with the fetched data
     renderTable(data);
 }
 
@@ -70,25 +158,17 @@ function renderTable(paginatedData) {
         return;
     }
 
-    // Calculate the starting index for display purposes (for row numbering)
     const startIndex = (currentPage - 1) * recordsPerPage;
     historyTableBody.innerHTML = paginatedData
         .map((item, index) => renderHistoryRow(item, startIndex + index))
         .join("");
 
-    attachEventListeners(); // Re-attach event listeners
-    renderPaginationControls(); // Render pagination controls
+    attachEventListeners();
+    renderPaginationControls();
 }
 
 function renderHistoryRow(item, index) {
-    // Check if QR has tracking (based on qr_image containing "redirect.html")
     const isTrackingEnabled = item.qr_image && item.qr_image.includes("redirect.html");
-
-    const displayedQRData = isTrackingEnabled
-        ? `<a href="${item.qr_image}" target="_blank">${item.qr_image}</a>`
-        : `<span style="color: gray;">No Tracking</span>`;
-
-    // If number_of_scanning < 0, it means no tracking
     const displayedScans = item.number_of_scanning < 0 
         ? `<span style="color: gray;">No Tracking</span>` 
         : item.number_of_scanning ?? 0;
@@ -112,97 +192,110 @@ function renderHistoryRow(item, index) {
 }
 
 function attachEventListeners() {
-    document.querySelectorAll(".edit-btn").forEach(btn =>
+    document.querySelectorAll(".edit-btn").forEach(btn => {
         btn.addEventListener("click", async (e) => {
             const qrId = e.target.dataset.id;
             const currentUrl = e.target.dataset.url;
             await editQRCode(qrId, currentUrl);
-        })
-    );
+        });
+    });
 
-    document.querySelectorAll(".delete-btn").forEach(btn =>
+    document.querySelectorAll(".delete-btn").forEach(btn => {
         btn.addEventListener("click", async (e) => {
             const qrId = e.target.dataset.id;
             await deleteQRCode(qrId);
-        })
-    );
+        });
+    });
 
-    document.querySelectorAll(".download-btn").forEach(btn =>
+    document.querySelectorAll(".download-btn").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const imageUrl = e.target.dataset.url;
             downloadQRCode(imageUrl);
-        })
-    );
+        });
+    });
 }
+
+// Hàm cập nhật một dòng trong table
+function updateTableRow(qrId, newUrl) {
+    const row = document.querySelector(`tr[data-id="${qrId}"]`);
+    if (row) {
+        const linkCell = row.cells[2]; // Cột Link (thứ 3)
+        linkCell.innerHTML = `<a href="${newUrl}" target="_blank">${newUrl}</a>`;
+    }
+}
+
 async function editQRCode(qrId, currentUrl) {
-    const newUrl = prompt("Enter new URL for this QR Code (must include http:// or https://):", currentUrl);
-    
-    // Kiểm tra nếu người dùng bấm Cancel hoặc để trống
-    if (!newUrl || newUrl.trim() === "") {
-        alert("Please enter a URL!");
-        return;
-    }
+    showEditModal(
+        "Edit QR Code",
+        currentUrl,
+        async (newUrl) => {
+            if (!newUrl) {
+                showNotificationModal("Please enter a URL!", true);
+                return;
+            }
 
-    const finalUrl = newUrl.trim();
+            const finalUrl = newUrl.trim();
 
-    // Kiểm tra xem URL có hợp lệ và đã bao gồm giao thức chưa
-    try {
-        // URL phải bắt đầu bằng http:// hoặc https://
-        if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
-            alert("Invalid URL! URL must start with http:// or https:// (e.g., https://example.com)");
-            return;
+            try {
+                if (!finalUrl.startsWith("http://") && !finalUrl.startsWith("https://")) {
+                    showNotificationModal("Invalid URL! URL must start with http:// or https:// (e.g., https://example.com)", true);
+                    return;
+                }
+                new URL(finalUrl);
+            } catch (e) {
+                showNotificationModal("Invalid URL! Please enter a valid URL (e.g., https://example.com)", true);
+                return;
+            }
+
+            const { data: userData, error: userError } = await supabase.auth.getUser();
+            if (userError || !userData.user) {
+                showNotificationModal("You need to be logged in to perform this action!", true);
+                return;
+            }
+
+            const { error } = await supabase
+                .from("qr_history")
+                .update({ qr_data: finalUrl })
+                .eq("id", qrId)
+                .eq("user_id", userData.user.id);
+
+            if (error) {
+                console.error("Error updating QR Code:", error);
+                showNotificationModal("Failed to update QR Code! Please try again.", true);
+                return;
+            }
+
+            showNotificationModal("QR Code updated successfully!");
+            updateTableRow(qrId, finalUrl); // Cập nhật table thay vì reload trang
         }
-        new URL(finalUrl); // Kiểm tra tính hợp lệ của URL
-    } catch (e) {
-        alert("Invalid URL! Please enter a valid URL (e.g., https://example.com)");
-        return;
-    }
-
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) {
-        alert("You need to be logged in to perform this action!");
-        return;
-    }
-
-    // Chỉ cập nhật qr_data
-    const { error } = await supabase
-        .from("qr_history")
-        .update({ qr_data: finalUrl })
-        .eq("id", qrId)
-        .eq("user_id", userData.user.id);
-
-    if (error) {
-        console.error("Error updating QR Code:", error);
-        alert("Failed to update QR Code! Please try again.");
-        return;
-    }
-
-    alert("QR Code updated successfully!");
-    window.location.reload();
+    );
 }
 
 async function deleteQRCode(qrId) {
-    if (!confirm("Are you sure you want to delete this QR Code?")) return;
+    showDeleteModal(
+        "Are you sure you want to delete this QR Code?",
+        async () => {
+            const { data: userData, error: userError } = await supabase.auth.getUser();
+            if (userError || !userData.user) {
+                showNotificationModal("You need to be logged in to perform this action!", true);
+                return;
+            }
 
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) {
-        alert("You need to be logged in to perform this action!");
-        return;
-    }
+            const { error } = await supabase
+                .from("qr_history")
+                .delete()
+                .match({ id: qrId, user_id: userData.user.id });
 
-    const { error } = await supabase
-        .from("qr_history")
-        .delete()
-        .match({ id: qrId, user_id: userData.user.id });
+            if (error) {
+                console.error("Error deleting QR Code:", error);
+                showNotificationModal("Failed to delete QR Code! Please try again.", true);
+                return;
+            }
 
-    if (error) {
-        console.error("Error deleting QR Code:", error);
-        alert("Failed to delete QR Code! Please try again.");
-        return;
-    }
-
-    alert("QR Code deleted successfully!");
-    loadQRCodeHistory(); // Reload the data after deletion
+            showNotificationModal("QR Code deleted successfully!");
+            loadQRCodeHistory(); // Reload table vì số lượng bản ghi thay đổi
+        }
+    );
 }
 
 function downloadQRCode(imageUrl) {
@@ -215,50 +308,55 @@ function downloadQRCode(imageUrl) {
 }
 
 async function deleteAllQRCode() {
-    if (!confirm("Are you sure you want to delete all QR Codes? This action cannot be undone!")) return;
+    showDeleteModal(
+        "Are you sure you want to delete all QR Codes? This action cannot be undone!",
+        async () => {
+            const { data: userData, error: userError } = await supabase.auth.getUser();
+            if (userError || !userData.user) {
+                showNotificationModal("You need to be logged in to perform this action!", true);
+                return;
+            }
 
-    const { data: userData, error: userError } = await supabase.auth.getUser();
-    if (userError || !userData.user) {
-        alert("You need to be logged in to perform this action!");
-        return;
-    }
+            const { error } = await supabase
+                .from("qr_history")
+                .delete()
+                .eq("user_id", userData.user.id);
 
-    // Delete all records for the current user
-    const { error } = await supabase
-        .from("qr_history")
-        .delete()
-        .eq("user_id", userData.user.id);
+            if (error) {
+                console.error("Error deleting all QR Codes:", error);
+                showNotificationModal("Failed to delete all QR Codes! Please try again.", true);
+                return;
+            }
 
-    if (error) {
-        console.error("Error deleting all QR Codes:", error);
-        alert("Failed to delete all QR Codes! Please try again.");
-        return;
-    }
-
-    alert("All QR Codes deleted successfully!");
-    loadQRCodeHistory(); // Reload the data after deletion
+            showNotificationModal("All QR Codes deleted successfully!");
+            loadQRCodeHistory(); // Reload table vì xóa tất cả
+        }
+    );
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded, calling loadQRCodeHistory");
     loadQRCodeHistory();
-});
 
-document.getElementById("delete-all-btn").addEventListener("click", deleteAllQRCode);
+    const deleteAllBtn = document.getElementById("delete-all-btn");
+    if (deleteAllBtn) {
+        deleteAllBtn.addEventListener("click", deleteAllQRCode);
+    } else {
+        console.error("Delete All button not found!");
+    }
+});
 
 function renderPaginationControls() {
     const paginationContainer = document.querySelector("#pagination-container");
-    paginationContainer.innerHTML = ""; // Clear previous pagination buttons
+    paginationContainer.innerHTML = "";
 
-    if (totalPages <= 1) return; // No need for pagination if only one page
+    if (totalPages <= 1) return;
 
-    // Create "Page X of Y" indicator
     const pageInfo = document.createElement("span");
     pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
     pageInfo.className = "pagination-info";
     paginationContainer.appendChild(pageInfo);
 
-    // Create "First Page" button
     if (currentPage > 1) {
         const firstPageBtn = document.createElement("button");
         firstPageBtn.textContent = "First Page";
@@ -270,7 +368,6 @@ function renderPaginationControls() {
         paginationContainer.appendChild(firstPageBtn);
     }
 
-    // Create "Previous" button
     if (currentPage > 1) {
         const prevBtn = document.createElement("button");
         prevBtn.textContent = "Previous";
@@ -282,7 +379,6 @@ function renderPaginationControls() {
         paginationContainer.appendChild(prevBtn);
     }
 
-    // Create number buttons (show max 5 pages)
     const maxPagesToShow = 5;
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
@@ -305,7 +401,6 @@ function renderPaginationControls() {
         paginationContainer.appendChild(btn);
     }
 
-    // Create "Next" button
     if (currentPage < totalPages) {
         const nextBtn = document.createElement("button");
         nextBtn.textContent = "Next";
@@ -317,7 +412,6 @@ function renderPaginationControls() {
         paginationContainer.appendChild(nextBtn);
     }
 
-    // Create "Last Page" button
     if (currentPage < totalPages) {
         const lastPageBtn = document.createElement("button");
         lastPageBtn.textContent = "Last Page";
@@ -329,6 +423,7 @@ function renderPaginationControls() {
         paginationContainer.appendChild(lastPageBtn);
     }
 }
+
 function updatePage() {
-    loadQRCodeHistory(); // Reload data from the server for the current page
+    loadQRCodeHistory();
 }
