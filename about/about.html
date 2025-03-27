@@ -8,60 +8,77 @@
     <style>
         
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        .container {
-            max-width: 90%;
-            margin: 5% auto;
-            padding: 3%;
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            text-align: center;
-        }
-        h1 {
-            font-size: clamp(24px, 5vw, 32px);
-            color: #222;
-            margin-bottom: 10px;
-        }
-        p {
-            line-height: 1.8;
-            font-size: clamp(16px, 3vw, 18px);
-            color: #555;
-            max-width: 100%;
-            margin: 0 auto 20px;
-        }
-        .section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f1f1f1;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .section img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
-            background: #007BFF;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #ffffff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+    color: #1D3557;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+p {
+    line-height: 1.8;
+    font-size: 18px;
+    color: #444;
+    margin: 0 auto 20px;
+}
+
+.section {
+    margin-top: 40px;
+    padding: 30px;
+    background: #F8FAFC;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.section:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+}
+
+.section img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 12px;    
+    margin-bottom: 20px;
+    object-fit: cover;
+}
+
+.btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    color: #fff;
+    background: #1D3557;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0b2c4c;
+}
         .btn:hover {
             background: #0056b3;
         }
@@ -197,9 +214,22 @@
         </div>
         
         <div class="section">
-            <img src="/about/championjven.jpg"Achievement">
+            <img src="/about/championaa.jpg"Achievement">
             <p>We proudly participated and emerged victorious in the <strong>ALGORITHM ARENA 6.0: ENJOURNEY</strong>, showcasing our teamwork and technical expertise.</p>
         </div>
+        <div class="section">
+            <img src="/about/jven.jpg"Achievement">
+            <p>The whole team had an experience trip to the ancient town of Son Tay on the occasion of the JVen event organized by the club.</p>
+        </div>
+        <div class="section">
+            <img src="/about/womenday.jpg" alt="Achievement">
+            <p>We organized a meaningful celebration for <strong>International Women's Day (March 8)</strong> to honor and appreciate the amazing women of Team 2.</p>
+        </div>
+        <div class="section">
+            <img src="/about/tbd.jpg" alt="Achievement">
+            <p>The whole team participated in team building activities together and had an enjoyable retreat at Ba Vi Garden.</p>
+        </div>
+        
     </div>  
     
 </body>
