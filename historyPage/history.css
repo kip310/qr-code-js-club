@@ -367,12 +367,12 @@ header {
 
 /* Nút Delete */
 .delete-btn {
-    background: rgb(21, 216, 230);  
+    background: rgb(243 76 76); 
     color: white;
     padding: 8px 16px;
     border: none;
     border-radius: 6px;
-    cursor: pointer;
+    cursor: pointer;    
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
@@ -462,7 +462,7 @@ header {
 }
 /* Nút Delete All */
 .delete-all-btn {
-    background: rgb(21, 216, 230);  
+    background: rgb(233, 59, 59);  
     color: white;
     padding: 10px 20px;
     border: none;
@@ -490,7 +490,7 @@ header {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 .edit-btn {
-    background: rgb(21, 216, 230);  
+    background: rgb(216, 230, 21);  
     color: white;
     border: none;
     padding: 6px 12px;
@@ -511,4 +511,7 @@ header {
     transform: translateY(0);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   }
-  
+body
+{
+    font-family: 'Roboto Slab', serif;
+}

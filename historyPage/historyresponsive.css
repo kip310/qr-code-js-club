@@ -1,5 +1,10 @@
 /* historyresponsive.css */
 
+
+body
+{
+    font-family: 'Roboto Slab', serif;
+}
 /* Button group để giữ các nút trên cùng một hàng */
 .button-group {
     display: flex;
@@ -62,6 +67,9 @@
 .delete-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.restricted-content {
+    font-family: 'Roboto Slab', serif;
 }
 
 /* Responsive Design cho màn hình dưới 768px */
@@ -149,7 +157,7 @@
 
 /* Nút Edit */
 .edit-btn {
-    background: rgb(21, 216, 230);
+    background: rgb(48, 151, 8);
     color: white;
     padding: 8px 16px;
     border: none;
@@ -203,7 +211,7 @@
 
 /* Nút Delete */
 .delete-btn {
-    background: rgb(21, 216, 230);
+    background: rgb(255, 46, 46);
     color: white;
     padding: 8px 16px;
     border: none;
