@@ -36,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Check if phone number has more than 9 digits
     const phoneDigits = phone.replace(/\D/g, ""); // Remove non-digit characters
-    if (phoneDigits.length <= 9) {
-      alert("Phone number has more than 9 digits.");
+    if (phoneDigits.length !== 10) {
+      alert("Phone number has 10 digits.");
       return;
     }
 
