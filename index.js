@@ -17,7 +17,6 @@ document.body.addEventListener("click", function(event){
 
 // Xử lý accordion
 const accordionHeaders = document.querySelectorAll(".accordion-header");
-
 accordionHeaders.forEach((header) => {
     header.addEventListener("click", (event) => {
         handleClickAccordion(event, header);

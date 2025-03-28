@@ -3,11 +3,6 @@ import { supabase } from "./supabaseClient.js";
 
 console.log("history.js loaded");
 
-let currentPage = 1;
-const recordsPerPage = 5;
-let totalPages = 1;
-let totalRecords = 0;
-
 // Hàm hiển thị modal thông báo
 function showNotificationModal(message, isError = false) {
     const modalContainer = document.getElementById('notification-modal');
@@ -100,6 +95,14 @@ function showEditModal(title, currentUrl, confirmCallback) {
     closeBtn.onclick = hideModal;
 }
 
+
+
+//tải table history
+let currentPage = 1;
+const recordsPerPage = 5;
+let totalPages = 1;
+let totalRecords = 0;
+
 async function loadQRCodeHistory() {
     console.log("Loading QR Code history...");
     const historyTableBody = document.querySelector("#history-table-body");
@@ -168,7 +171,6 @@ function renderTable(paginatedData) {
 }
 
 function renderHistoryRow(item, index) {
-    const isTrackingEnabled = item.qr_image && item.qr_image.includes("redirect.html");
     const displayedScans = item.number_of_scanning < 0 
         ? `<span style="color: gray;">No Tracking</span>` 
         : item.number_of_scanning ?? 0;
