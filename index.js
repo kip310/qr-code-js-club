@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageSizeInput.value = op.imageOptions.imageSize;
         imageSizeInput.addEventListener("input", function() {
             let val = parseFloat(this.value);
-            if (!isNaN(val) && val >= 0.1 && val <= 0.8) {
+            if (!isNaN(val) && val >= 0.1 && val <= 0.7) {
                 op.imageOptions.imageSize = val;
                 render();
                 saveState(op, textData, toggleScan);
