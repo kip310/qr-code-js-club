@@ -108,7 +108,7 @@ export function updateUIFromState(state, renderQRCode) {
     if (state.op.imageOptions) {
         document.getElementById("form-hide-background-dots").checked = state.op.imageOptions.hideBackgroundDots;
         document.getElementById("form-image-size").value = state.op.imageOptions.imageSize || 0.4;
-        document.getElementById("form-image-margin").value = state.op.imageOptions.margin || 10;
+
     }
 
     // Gọi renderQRCode để vẽ lại mã QR sau khi khôi phục trạng thái
