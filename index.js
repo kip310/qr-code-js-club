@@ -2,19 +2,6 @@ import { longVariable } from "./variable.js";
 import { supabase } from "./supabaseClient.js";
 import { saveState, loadState, updateUIFromState, clearState } from "./stateManager.js";
 
-
-// Xử lý modal
-document.body.addEventListener("click", function(event){
-    console.log(event.target);
-    if (event.target.matches(".modal-close")){
-        const modal = event.target.parentNode.parentNode;
-        modal.parentNode.removeChild(modal);
-    } else if(event.target.matches(".modal") && !event.target.closest(".modal-content")){
-        console.log("Closing modal due to click outside modal-content");
-        event.target.parentNode.removeChild(event.target);
-    }
-});
-
 // Xử lý accordion
 const accordionHeaders = document.querySelectorAll(".accordion-header");
 accordionHeaders.forEach((header) => {
