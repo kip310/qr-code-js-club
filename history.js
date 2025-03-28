@@ -328,8 +328,7 @@ async function deleteAllQRCode() {
                 return;
             }
 
-            showNotificationModal("All QR Codes deleted successfully!");
-            loadQRCodeHistory(); // Reload table vì xóa tất cả
+            window.location.reload();
         }
     );
 }
