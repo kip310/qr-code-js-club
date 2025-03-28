@@ -404,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Xử lý Image Options
     const hideBackgroundDotsCheckbox = document.getElementById("form-hide-background-dots");
     const imageSizeInput = document.getElementById("form-image-size");
-    const imageMarginInput = document.getElementById("form-image-margin");
+
 
     if (typeof op === "undefined") {
         console.error("Biến 'op' chưa được khai báo!");
@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function () {
         imageSizeInput.value = op.imageOptions.imageSize;
         imageSizeInput.addEventListener("input", function() {
             let val = parseFloat(this.value);
-            if (!isNaN(val) && val >= 0.1 && val <= 1) {
+            if (!isNaN(val) && val >= 0.1 && val <= 0.8) {
                 op.imageOptions.imageSize = val;
                 render();
                 saveState(op, textData, toggleScan);
@@ -438,21 +438,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Không tìm thấy phần tử #form-image-size");
     }
 
-    if (imageMarginInput) {
-        imageMarginInput.value = op.imageOptions.margin;
-        imageMarginInput.addEventListener("input", function() {
-            let val = parseInt(this.value, 10);
-            if (!isNaN(val) && val >= 0 && val <= 20) {
-                op.imageOptions.margin = val;
-                render();
-                saveState(op, textData, toggleScan);
-            } else {
-                this.value = op.imageOptions.margin;
-            }
-        });
-    } else {
-        console.error("Không tìm thấy phần tử #form-image-margin");
-    }
+    
 
     // Gắn các sự kiện cho Dots Options, Background Options, Corners Square Options, Corners Dot Options
     setupColorOption("dotsOptions", {
