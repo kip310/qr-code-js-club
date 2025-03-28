@@ -106,6 +106,7 @@ function render() {
     }
 }
 
+
 function isValidURL(url) {
     try {
         const parsed = new URL(url);
@@ -144,6 +145,17 @@ function renderQRCode(qrData) {
     op.data = qrData;
     render();
 }
+
+// Xử lý các sự kiện data
+textData.addEventListener("keyup", () => {
+    generateQRCode();
+    saveState(op, textData, toggleScan);
+});
+
+toggleScan.addEventListener("change", () => {
+    generateQRCode();
+    saveState(op, textData, toggleScan);
+});
 
 function setupColorOption(configKey, selectors, defaults) {
     const configObj = op[configKey] = op[configKey] || {};
@@ -490,16 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Xử lý các sự kiện khác
-textData.addEventListener("keyup", () => {
-    generateQRCode();
-    saveState(op, textData, toggleScan);
-});
 
-toggleScan.addEventListener("change", () => {
-    generateQRCode();
-    saveState(op, textData, toggleScan);
-});
 
 const fileInput = document.querySelector("#form-logo");
 
@@ -579,7 +582,6 @@ async function saveQRToSupabase(originalURL, trackEnabled) {
         console.log(`QR record created! ID: ${qrId}, qr_data: ${qrData}`);
 
         // Luôn tạo URL theo định dạng tracking bất kể trackEnabled
-        const encodedQrData = encodeURIComponent(qrData);
         finalURL = `https://qr-code-js-club.vercel.app/redirect.html?id_qr=${qrId}`;
 
         renderQRCode(finalURL);
