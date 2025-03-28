@@ -511,7 +511,7 @@ header {
     transform: translateY(0);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   }
-body
-{
-    font-family: 'Roboto Slab', serif;
+
+body {
+    font-family: 'Roboto', sans-serif;
 }

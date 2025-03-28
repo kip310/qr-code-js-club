@@ -8,7 +8,7 @@ export const template1 =
     <p class="modal-subtitle">Sign in to continue</p>
     <form>
       <button id="gmail-login-btn" class="google-login-btn">
-        <img src="/logogoogle.png" alt="Google Logo" class="google-logo">
+        <img src="/img/logogoogle.png" alt="Google Logo" class="google-logo">
         <span>Sign in with Google</span>
       </button>
     </form>

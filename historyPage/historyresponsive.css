@@ -1,10 +1,6 @@
 /* historyresponsive.css */
 
 
-body
-{
-    font-family: 'Roboto Slab', serif;
-}
 /* Button group để giữ các nút trên cùng một hàng */
 .button-group {
     display: flex;
@@ -67,9 +63,6 @@ body
 .delete-btn:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.restricted-content {
-    font-family: 'Roboto Slab', serif;
 }
 
 /* Responsive Design cho màn hình dưới 768px */
@@ -310,4 +303,8 @@ body
         padding: 6px 12px;
         font-size: 11px;
     }
+}
+body{
+
+    font-family: 'Roboto', sans-serif;
 }
