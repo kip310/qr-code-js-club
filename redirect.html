@@ -48,7 +48,7 @@
                     .from("scan")
                     .insert({
                         qr_id: qrId,
-                        user_id: null,
+
                         device: navigator.userAgent,
                         scanned_at: new Date().toISOString(),
                     });

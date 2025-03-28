@@ -86,7 +86,7 @@ function showEditModal(title, currentUrl, confirmCallback) {
     urlInput.value = currentUrl;
     modal.classList.remove("hidden");
 
-    // Ngăn hành vi submit mặc định của form khi nhấn Enter
+
     form.addEventListener('submit', (e) => e.preventDefault());
 
     confirmBtn.onclick = () => {
