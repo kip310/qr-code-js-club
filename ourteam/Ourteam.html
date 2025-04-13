@@ -1,259 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/img/anhlogo.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/img/anhlogo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-    <title>Our Team</title>
-    <style>
-      
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-        .team-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        .team-member {
-    background: white;
-    margin: 15px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Căn giữa nội dung */
-    text-align: center;
-    width: 200px; /* Đảm bảo kích thước đồng đều */
-}
-        .team-member:hover {
-            transform: scale(1.3);
-        }
-        .team-member img {
-    width: 120px; /* Đảm bảo tất cả ảnh có cùng kích thước */
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-        h1 {
-            color: #333;
-        }
-        .team-container
-        {
-            margin-top: 100px;
-        }
-        header {
-    background-color: #B5E3E0;
-    color: #333;
-    text-align: center;
-    padding: 1.5%;
-    font-size: 15px;
-    font-weight: bold;
-    position: relative;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    display: flex
-  ;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    font-family: 'Montserrat', sans-serif;
-    /* overflow: hidden; */
-    overflow: visible;
-    height: 100px;
-  }
-  .header-title {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 900;
-    color: #1D3557;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #457B9D, #1D3557);
-    background-clip: text;
-    -webkit-background-clip: text; 
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    z-index: 2;
-  }
-  
+  <title>Our Team</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #f4f4f4;
+    }
 
-.header-logo {
-  width: 5vw;
-  height: 5vw;
-  max-width: 70px;
-  max-height: 70px;
-  min-width: 50px;
-  min-height: 50px;
-  border: 0.4vw solid #1D3557; /* Giảm độ dày viền */
-  border-radius: 50%;
-  padding: 0.4vw; /* Giảm padding để logo không quá to */
-  background: white;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15); /* Giảm độ lớn của bóng */
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .team-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+    }
 
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: moveCircles 6s infinite ease-in-out alternate;
-  z-index: 1;
-}
-.circle1 {
-  width: 60px;
-  height: 60px;
-  background: #89C2D9;
-  top: 20px;
-  left: 10%;
-  animation-delay: 0s;
-}
-.circle2 {
-  width: 100px;
-  height: 100px;
-  background: #61A5C2;
-  top: 20px;
-  right: 15%;
-  animation-delay: 1s;
-}
-.circle3 {
-  width: 80px;
-  height: 80px;
-  background: #A9D6E5;
-  bottom: 30px;
-  left: 30%;
-  animation-delay: 2s;
-}
-.circle4 {
-  width: 120px;
-  height: 120px;
-  background: #BFD7EA;
-  bottom: 60px;
-  right: 10%;
-  animation-delay: 3s;
-}
-.circle5 {
-  width: 100px;
-  height: 100px;
-  background: #457B9D;
-  top: 40px;
-  left: 5%;
-  animation-delay: 4s;
-}
-@keyframes moveCircles {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(30px) scale(1.1); }
-  100% { transform: translateY(0) scale(1); }
-}
-.avatar-img {
-  width: 70;
-  height: 70px;
-  border-radius: 50%;
+    .team-member {
+      background: white;
+      margin: 15px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* Căn giữa nội dung */
+      text-align: center;
+      width: 200px;
+      /* Đảm bảo kích thước đồng đều */
+    }
 
-}
-.fa-brands
-{
-  color: black;
-}
-.fa-brands:hover {
-  color: rgb(140, 198, 242);
-  transform: scale(1.2);
-  transition: transform 0.3s ease, color 0.3s ease;
-}
+    .team-member:hover {
+      transform: scale(1.3);
+    }
+
+    .team-member img {
+      width: 120px;
+      /* Đảm bảo tất cả ảnh có cùng kích thước */
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .team-container {
+      margin-top: 100px;
+    }
+
+    header {
+      background-color: #B5E3E0;
+      color: #333;
+      text-align: center;
+      padding: 1.5%;
+      font-size: 15px;
+      font-weight: bold;
+      position: relative;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      /* overflow: hidden; */
+      overflow: visible;
+      height: 100px;
+    }
+
+    .header-title {
+      flex-grow: 1;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 900;
+      color: #1D3557;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #457B9D, #1D3557);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      z-index: 2;
+    }
 
 
+    .header-logo {
+      width: 5vw;
+      height: 5vw;
+      max-width: 70px;
+      max-height: 70px;
+      min-width: 50px;
+      min-height: 50px;
+      border: 0.4vw solid #1D3557;
+      /* Giảm độ dày viền */
+      border-radius: 50%;
+      padding: 0.4vw;
+      /* Giảm padding để logo không quá to */
+      background: white;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+      /* Giảm độ lớn của bóng */
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        
-    </style>
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: moveCircles 6s infinite ease-in-out alternate;
+      z-index: 1;
+    }
+
+    .circle1 {
+      width: 60px;
+      height: 60px;
+      background: #89C2D9;
+      top: 20px;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .circle2 {
+      width: 100px;
+      height: 100px;
+      background: #61A5C2;
+      top: 20px;
+      right: 15%;
+      animation-delay: 1s;
+    }
+
+    .circle3 {
+      width: 80px;
+      height: 80px;
+      background: #A9D6E5;
+      bottom: 30px;
+      left: 30%;
+      animation-delay: 2s;
+    }
+
+    .circle4 {
+      width: 120px;
+      height: 120px;
+      background: #BFD7EA;
+      bottom: 60px;
+      right: 10%;
+      animation-delay: 3s;
+    }
+
+    .circle5 {
+      width: 100px;
+      height: 100px;
+      background: #457B9D;
+      top: 40px;
+      left: 5%;
+      animation-delay: 4s;
+    }
+
+    @keyframes moveCircles {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(30px) scale(1.1);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .avatar-img {
+      width: 70;
+      height: 70px;
+      border-radius: 50%;
+
+    }
+
+    .fa-brands {
+      color: black;
+    }
+
+    .fa-brands:hover {
+      color: rgb(140, 198, 242);
+      transform: scale(1.2);
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+  </style>
 </head>
-<body>
-    <header class="header">
-        <div class="circle circle1"></div>
-        <div class="circle circle2"></div>
-        <div class="circle circle3"></div>
-        <div class="circle circle4"></div>
-        <div class="circle circle5"></div>
-        <!-- Logo -->
-        <a href="/index.html" >
-            <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
-        </a>
-        
-        <div class="header-title">Our team</div>  
-        <!-- Buttons -->
-    </header>
-    <div class="team-container">
-        <div class="team-member">
-            <img src="/ourteam/duc.png" alt="Member 1">
-            <h3>Duc Thai</h3>
-            <p>Leader/ Frontend Developer</p>
-            <div class="socialIcons">
-              <a href="https://www.facebook.com/ducdeptraithenayaimachiunoi/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-              <a href="https://www.instagram.com/duckipdeptrai/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://github.com/kip310" target="_blank"><i class="fa-brands fa-github"></i></a>
 
-          </div>
+<body>
+  <header class="header">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+    <div class="circle circle5"></div>
+    <!-- Logo -->
+    <a href="/index.html">
+      <img class="avatar-img" src="https://avatars.githubusercontent.com/u/97457434?s=280&v=4" alt="jsclub-image" />
+    </a>
+
+    <div class="header-title">Our team</div>
+    <!-- Buttons -->
+  </header>
+  <div class="team-container">
+    <div class="team-member">
+      <img src="/ourteam/duc.png" alt="Member 1">
+      <h3>Duc Thai</h3>
+      <p>Leader/ Frontend Developer</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/ducdeptraithenayaimachiunoi/" target="_blank"><i
+            class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/duckipdeptrai/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://github.com/kip310" target="_blank"><i class="fa-brands fa-github"></i></a>
+
+      </div>
     </div>
     <div class="team-member">
-        <img src="/ourteam/hai.png" alt="Member 2">
-        <h3>Hai Pham Minh</h3>
-        <p>Techlead/ Backend Developer</p>
-        <div class="socialIcons">
-          <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <img src="/ourteam/hai.png" alt="Member 2">
+      <h3>Hai Pham Minh</h3>
+      <p>Techlead/ Backend Developer</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
       </div>
-     </div>
-     <div class="team-member">
-        <img src="/ourteam/hieu.png" alt="Member 3">
-        <h3>Hieu Nguyen</h3>
-        <p>Backend Developer</p>
-        <div class="socialIcons">
-          <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/hieu.png" alt="Member 3">
+      <h3>Hieu Nguyen</h3>
+      <p>Backend Developer</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
       </div>
-     </div>
-     <div class="team-member">
-        <img src="/ourteam/ha.png" alt="Member 4">
-        <h3>Ha Dam</h3>
-        <p>Frontend Developer</p>
-        <div class="socialIcons">
-          <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/ha.png" alt="Member 4">
+      <h3>Ha Dam</h3>
+      <p>Frontend Developer</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
       </div>
-     </div>
-     <div class="team-member">
-        <img src="/ourteam/giang.png" alt="Member 4">
-        <h3>Giang Nguyen</h3>
-        <p>Frontend Developer</p>
-        <div class="socialIcons">
-          <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-          <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/giang.png" alt="Member 4">
+      <h3>Giang Nguyen</h3>
+      <p>Frontend Developer</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
       </div>
-     </div>
-     <div class="team-member">
+    </div>
+    <div class="team-member">
       <img src="/ourteam/anhkhanh.jpg" alt="Member 4">
       <h3>Dang Khanh</h3>
       <p>Mentor</p>
@@ -262,57 +290,58 @@
         <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
         <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
+      </div>
     </div>
-   </div>
-   <div class="team-member">
-    <img src="/ourteam/anhdinhanh.jpg" alt="Member 4">
-    <h3>Dinh Anh Nguyen</h3>
-    <p>Takecare</p>
-    <div class="socialIcons">
-      <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-      <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-      <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+    <div class="team-member">
+      <img src="/ourteam/anhdinhanh.jpg" alt="Member 4">
+      <h3>Dinh Anh Nguyen</h3>
+      <p>Takecare</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/anhduc.jpg" alt="Member 4">
+      <h3>Duc Minh Ngo</h3>
+      <p>Takecare</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/anhhungtranomtivi.jpg" alt="Member 4">
+      <h3>Hung Tran</h3>
+      <p>Takecare</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+
+      </div>
+    </div>
+    <div class="team-member">
+      <img src="/ourteam/chimoi.jpg" alt="Member 4">
+      <h3>Linh Moi</h3>
+      <p>Takecare</p>
+      <div class="socialIcons">
+        <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
+
+      </div>
+    </div>
+
+
 
   </div>
- </div>
- <div class="team-member">
-  <img src="/ourteam/anhduc.jpg" alt="Member 4">
-  <h3>Duc Minh Ngo</h3>
-  <p>Takecare</p>
-  <div class="socialIcons">
-    <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-    <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-    <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
-</div>
-</div>  
-<div class="team-member">
-  <img src="/ourteam/anhhungtranomtivi.jpg" alt="Member 4">
-  <h3>Hung Tran</h3>
-  <p>Takecare</p>
-  <div class="socialIcons">
-    <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-    <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-    <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
 
-</div>
-</div>
-<div class="team-member">
-  <img src="/ourteam/chimoi.jpg" alt="Member 4">
-  <h3>Linh Moi</h3>
-  <p>Takecare</p>
-  <div class="socialIcons">
-    <a href="https://www.facebook.com/fu.jsclub" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-    <a href="https://www.instagram.com/fptu.jsclub/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-    <a href="mailto:jsclub.fpt@gmail.com" target="_blank"><i class="fa-brands fa-github"></i></a>
-
-</div>
-</div>
-       
-
-     
-    </div>
-    
-    
 </body>
+
 </html>
